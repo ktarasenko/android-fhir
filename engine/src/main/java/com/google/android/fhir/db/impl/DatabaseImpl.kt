@@ -211,6 +211,10 @@ internal class DatabaseImpl(
     db.withTransaction { localChangeDao.discardLocalChanges(token) }
   }
 
+  override fun close() {
+    db.close()
+  }
+
   override suspend fun selectEntity(type: ResourceType, id: String): ResourceEntity {
     return db.withTransaction {
       resourceDao.getResourceEntity(resourceId = id, resourceType = type)

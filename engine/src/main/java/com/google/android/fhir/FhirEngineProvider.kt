@@ -23,20 +23,14 @@ import com.google.android.fhir.sync.DataSource
 
 /** The builder for [FhirEngine] instance */
 object FhirEngineProvider {
-  private lateinit var fhirEngineConfiguration: FhirEngineConfiguration
-  private lateinit var fhirServices: FhirServices
+  private var fhirServicesInstance: FhirServices? = null
+  private var fhirEngineConfiguration: FhirEngineConfiguration = FhirEngineConfiguration()
 
-  /**
-   * Initializes the [FhirEngine] singleton with a custom Configuration.
-   *
-   * This method throws [IllegalStateException] if it is called multiple times
-   */
+  /** Initializes the [FhirEngine] singleton with a custom Configuration. */
   @Synchronized
-  fun init(fhirEngineConfiguration: FhirEngineConfiguration) {
-    check(!FhirEngineProvider::fhirEngineConfiguration.isInitialized) {
-      "FhirEngineProvider: FhirEngineConfiguration has already been initialized."
-    }
+  fun init(fhirEngineConfiguration: FhirEngineConfiguration): FhirEngineProvider {
     this.fhirEngineConfiguration = fhirEngineConfiguration
+    return this
   }
 
   /**
@@ -51,27 +45,31 @@ object FhirEngineProvider {
   }
 
   @Synchronized
-  @JvmStatic
   internal fun getDataSource(context: Context): DataSource? {
     return getOrCreateFhirService(context).remoteDataSource
   }
 
   @Synchronized
   private fun getOrCreateFhirService(context: Context): FhirServices {
-    if (!::fhirServices.isInitialized) {
-      if (!::fhirEngineConfiguration.isInitialized) {
-        fhirEngineConfiguration = FhirEngineConfiguration()
-      }
-      fhirServices =
+    if (fhirServicesInstance == null) {
+      fhirServicesInstance =
         FhirServices.builder(context.applicationContext)
           .apply {
             if (fhirEngineConfiguration.enableEncryptionIfSupported) enableEncryptionIfSupported()
+            if (fhirEngineConfiguration.inMemoryDatabase) inMemory()
             setDatabaseErrorStrategy(fhirEngineConfiguration.databaseErrorStrategy)
-            fhirEngineConfiguration.serverConfiguration?.let { setServerConfiguration(it) }
+            fhirEngineConfiguration.serverConfiguration?.let(::setServerConfiguration)
           }
           .build()
     }
-    return fhirServices
+    return fhirServicesInstance!!
+  }
+
+  @Synchronized
+  fun reset() {
+    fhirServicesInstance?.database?.close()
+    fhirEngineConfiguration = FhirEngineConfiguration()
+    fhirServicesInstance = null
   }
 }
 
@@ -87,6 +85,7 @@ object FhirEngineProvider {
 data class FhirEngineConfiguration(
   val enableEncryptionIfSupported: Boolean = false,
   val databaseErrorStrategy: DatabaseErrorStrategy = UNSPECIFIED,
+  val inMemoryDatabase: Boolean = false,
   val serverConfiguration: ServerConfiguration? = null
 )
 
