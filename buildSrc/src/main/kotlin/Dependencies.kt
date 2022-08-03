@@ -31,6 +31,7 @@ object Dependencies {
   }
 
   object Cql {
+    const val cqfFhir = "info.cqframework:cqf-fhir:${Versions.Cql.translator}"
     const val evaluator = "org.opencds.cqf.cql:evaluator:${Versions.Cql.evaluator}"
     const val evaluatorBuilder = "org.opencds.cqf.cql:evaluator.builder:${Versions.Cql.evaluator}"
     const val evaluatorDagger = "org.opencds.cqf.cql:evaluator.dagger:${Versions.Cql.evaluator}"
@@ -161,6 +162,7 @@ object Dependencies {
 
     object Cql {
       const val evaluator = "1.4.2"
+      const val translator = "1.5.10-SNAPSHOT"
     }
 
     object JavaJsonTools {

@@ -16,6 +16,7 @@
 
 package com.google.android.fhir.workflow
 
+import ca.uhn.fhir.model.api.IQueryParameterType
 import com.google.android.fhir.FhirEngine
 import com.google.android.fhir.getResourceType
 import com.google.android.fhir.search.search
@@ -23,10 +24,14 @@ import kotlinx.coroutines.runBlocking
 import org.hl7.fhir.instance.model.api.IBaseResource
 import org.hl7.fhir.instance.model.api.IIdType
 import org.hl7.fhir.r4.model.Library
-import org.hl7.fhir.r4.model.Measure
 import org.hl7.fhir.r4.model.Patient
 import org.hl7.fhir.r4.model.Resource
-import org.opencds.cqf.cql.evaluator.fhir.dal.FhirDal
+import org.cqframework.fhir.api.FhirDal
+import org.hl7.fhir.instance.model.api.IBaseBundle
+import org.hl7.fhir.r4.model.Bundle
+
+// what are fhir r4 vs r5 vs dstu2 what should we use?
+// capabilities, transactions wtf?
 
 class FhirEngineDal(private val fhirEngine: FhirEngine) : FhirDal {
   val libs = mutableMapOf<String, Library>()
@@ -49,20 +54,16 @@ class FhirEngineDal(private val fhirEngine: FhirEngine) : FhirDal {
     fhirEngine.delete(getResourceType(clazz), id.idPart)
   }
 
-  override fun search(resourceType: String): Iterable<IBaseResource> = runBlocking {
-    when (resourceType) {
-      "Patient" -> fhirEngine.search<Patient> {}.toMutableList()
-      else -> throw NotImplementedError("Not yet implemented")
-    }
-  }
-
-  override fun searchByUrl(resourceType: String, url: String): Iterable<IBaseResource> =
-      runBlocking {
-    when (resourceType) {
-      "Measure" -> fhirEngine.search<Measure> { filter(Measure.URL, { value = url }) }
-      "Library" -> listOf(libs[url] as Library)
-      else -> listOf()
-    }.toMutableList()
+  override fun search(
+    resourceType: String,
+    searchParameters: Map<String, List<IQueryParameterType>>,
+  ): IBaseBundle {
+    return runBlocking {
+       when (resourceType) {
+          "Patient" -> fhirEngine.search<Patient> {}
+          else -> throw NotImplementedError("Not yet implemented")
+        }
+      }.toBundle()
   }
 
   @Suppress("UNCHECKED_CAST")
@@ -75,4 +76,12 @@ class FhirEngineDal(private val fhirEngine: FhirEngine) : FhirDal {
       throw IllegalArgumentException("invalid resource type : $resourceType", exception)
     }
   }
+
+  private fun <E: Resource> List<E>.toBundle(): IBaseBundle{
+    return Bundle().apply {
+      type = Bundle.BundleType.SEARCHSET
+      entry = map { Bundle.BundleEntryComponent().apply { resource = it } }
+    }
+  }
+
 }

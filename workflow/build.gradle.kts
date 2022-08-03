@@ -116,6 +116,7 @@ dependencies {
   coreLibraryDesugaring(Dependencies.desugarJdkLibs)
 
   implementation(Dependencies.Androidx.coreKtx)
+  implementation(Dependencies.Cql.cqfFhir)
   implementation(Dependencies.Cql.evaluator)
   implementation(Dependencies.Cql.evaluatorBuilder)
   implementation(Dependencies.Cql.evaluatorDagger)
