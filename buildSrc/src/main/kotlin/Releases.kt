@@ -71,6 +71,13 @@ object Releases {
     }
   }
 
+  object Artifact : LibraryArtifact {
+    override val artifactId = "artifact"
+    override val version = "0.1.0-alpha01"
+    override val name = "Android FHIR IG management Library"
+  }
+
+
   // Demo apps
 
   object Demo {

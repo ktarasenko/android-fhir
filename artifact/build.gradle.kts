@@ -5,7 +5,7 @@ plugins {
   jacoco
 }
 
-publishArtifact(Releases.Workflow)
+publishArtifact(Releases.Artifact)
 
 createJacocoTestReportTask()
 
@@ -13,12 +13,13 @@ android {
   compileSdk = Sdk.compileSdk
 
   defaultConfig {
-    minSdk = Sdk.minSdkWorkflow
+    minSdk = Sdk.minSdk
     targetSdk = Sdk.targetSdk
     testInstrumentationRunner = Dependencies.androidJunitRunner
     // Need to specify this to prevent junit runner from going deep into our dependencies
-    testInstrumentationRunnerArguments["package"] = "com.google.android.fhir.workflow"
+    testInstrumentationRunnerArguments["package"] = "com.google.android.fhir.artifact"
   }
+
 
   // Added this for fixing out of memory issue in running test cases
   tasks.withType<Test>().configureEach {
@@ -37,6 +38,7 @@ android {
     sourceCompatibility = Java.sourceCompatibility
     targetCompatibility = Java.targetCompatibility
   }
+
 
   packagingOptions {
     resources.excludes.addAll(
@@ -63,6 +65,7 @@ android {
     )
   }
 
+
   kotlinOptions { jvmTarget = Java.kotlinJvmTarget.toString() }
 
   configureJacocoTestOptions()
@@ -70,16 +73,20 @@ android {
 
 configurations {
   all {
+    exclude(module = "json")
     exclude(module = "xpp3")
-    exclude(module = "xpp3_min")
-    exclude(module = "xmlpull")
-    exclude(module = "javax.json")
-    exclude(module = "jcl-over-slf4j")
+    exclude(module = "hamcrest-all")
+    exclude(module = "javax.activation")
     exclude(group = "org.apache.httpcomponents")
-    // Remove this after this issue has been fixed:
-    // https://github.com/cqframework/clinical_quality_language/issues/799
-    exclude(module = "antlr4")
+    exclude(module = "activation", group = "javax.activation")
+    exclude(module = "javaee-api", group = "javax")
+    exclude(module = "hamcrest-all")
+    exclude(module = "javax.activation")
+    exclude(group = "xml-apis")
+    exclude(group = "com.google.code.javaparser")
+    exclude(group = "jakarta.activation")
   }
+
 }
 
 dependencies {
@@ -90,49 +97,41 @@ dependencies {
   androidTestImplementation(Dependencies.AndroidxTest.workTestingRuntimeKtx)
   androidTestImplementation(Dependencies.junit)
   androidTestImplementation(Dependencies.truth)
-  androidTestImplementation(Dependencies.xmlUnit)
-  androidTestImplementation(project(":testing"))
+  androidTestImplementation(project(":workflow"))
+  androidTestImplementation(project(":engine"))
   androidTestImplementation(project(":workflow-testing"))
 
   api(Dependencies.HapiFhir.structuresR4) { exclude(module = "junit") }
 
   implementation(Dependencies.Androidx.coreKtx)
-
-  // Remove this after this issue has been fixed:
-  // https://github.com/cqframework/clinical_quality_language/issues/799
-  implementation(Dependencies.Cql.antlr4Runtime)
-
-  implementation(Dependencies.Cql.engine)
-  implementation(Dependencies.Cql.engineJackson) // Necessary to import Executable XML/JSON CQL libs
-  implementation(Dependencies.Cql.evaluator)
-  implementation(Dependencies.Cql.evaluatorBuilder)
-  implementation(Dependencies.Cql.evaluatorDagger)
-  implementation(Dependencies.Cql.evaluatorPlanDef)
-  implementation(Dependencies.Cql.translatorCqlToElm) // Overrides HAPI's old versions
-  implementation(Dependencies.Cql.translatorElm) // Overrides HAPI's old versions
-  implementation(Dependencies.Cql.translatorElmJackson) // Necessary to import XML/JSON CQL Libs
-  implementation(Dependencies.Cql.translatorModel) // Overrides HAPI's old versions
-  implementation(Dependencies.Cql.translatorModelJackson) // Necessary to import XML/JSON ModelInfos
-
-  // Runtime dependency that is required to run FhirPath (also requires minSDK of 26).
-  // Version 3.0 uses java.lang.System.Logger, which is not available on Android
-  // Replace for Guava when this PR gets merged: https://github.com/hapifhir/hapi-fhir/pull/3977
-  implementation(Dependencies.HapiFhir.caffeine)
-
+  implementation(Dependencies.Cql.translatorModel)
+  implementation(Dependencies.Cql.translatorCqlToElm)
+  implementation(Dependencies.Cql.translatorElm)
+  implementation(Dependencies.Jackson.annotations)
+  implementation(Dependencies.Jackson.core)
+  implementation(Dependencies.Jackson.databind)
   implementation(Dependencies.Kotlin.kotlinCoroutinesAndroid)
   implementation(Dependencies.Kotlin.kotlinCoroutinesCore)
   implementation(Dependencies.Kotlin.stdlib)
+  implementation(Dependencies.woodstox)
   implementation(Dependencies.xerces)
-  implementation(project(":engine"))
+
+  // HAPI base
+  implementation("ca.uhn.hapi.fhir:org.hl7.fhir.convertors:5.4.0")
+  implementation("ca.uhn.hapi.fhir:org.hl7.fhir.utilities:5.4.0")
+
+  implementation("ca.uhn.hapi.fhir:hapi-fhir-base:5.4.0")
+  implementation("ca.uhn.hapi.fhir:hapi-fhir-converter:5.4.0")
+  implementation("ca.uhn.hapi.fhir:hapi-fhir-structures-dstu3:5.4.0")
+  implementation(Dependencies.HapiFhir.validation)
 
   testImplementation(Dependencies.AndroidxTest.core)
-  testImplementation(Dependencies.jsonAssert)
   testImplementation(Dependencies.junit)
   testImplementation(Dependencies.robolectric)
   testImplementation(Dependencies.truth)
-  testImplementation(Dependencies.xmlUnit)
-  testImplementation(project(":testing"))
+  testImplementation(project(":engine"))
+  testImplementation(project(":workflow"))
   testImplementation(project(":workflow-testing"))
 }
 
-configureDokka(Releases.Workflow.artifactId, Releases.Workflow.version)
+configureDokka(Releases.Artifact.artifactId, Releases.Artifact.version)
