@@ -90,16 +90,6 @@ configurations {
 }
 
 dependencies {
-  androidTestImplementation(Dependencies.AndroidxTest.core)
-  androidTestImplementation(Dependencies.AndroidxTest.extJunit)
-  androidTestImplementation(Dependencies.AndroidxTest.extJunitKtx)
-  androidTestImplementation(Dependencies.AndroidxTest.runner)
-  androidTestImplementation(Dependencies.AndroidxTest.workTestingRuntimeKtx)
-  androidTestImplementation(Dependencies.junit)
-  androidTestImplementation(Dependencies.truth)
-  androidTestImplementation(project(":workflow"))
-  androidTestImplementation(project(":engine"))
-  androidTestImplementation(project(":workflow-testing"))
 
   api(Dependencies.HapiFhir.structuresR4) { exclude(module = "junit") }
 
@@ -124,14 +114,6 @@ dependencies {
   implementation("ca.uhn.hapi.fhir:hapi-fhir-converter:5.4.0")
   implementation("ca.uhn.hapi.fhir:hapi-fhir-structures-dstu3:5.4.0")
   implementation(Dependencies.HapiFhir.validation)
-
-  testImplementation(Dependencies.AndroidxTest.core)
-  testImplementation(Dependencies.junit)
-  testImplementation(Dependencies.robolectric)
-  testImplementation(Dependencies.truth)
-  testImplementation(project(":engine"))
-  testImplementation(project(":workflow"))
-  testImplementation(project(":workflow-testing"))
 }
 
 configureDokka(Releases.Artifact.artifactId, Releases.Artifact.version)

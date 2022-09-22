@@ -22,17 +22,7 @@
         "display": "Informal employment (other)"
       } ]
     }
-  },
-    {
-      "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
-      "valueCodeableConcept": {
-        "coding": [ {
-          "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/anc-custom-codes",
-          "code": "ANC.B6.DE12",
-          "display": "Informal employment (other)"
-        } ]
-      }
-    }],
+  } ],
   "identifier": [ {
     "use": "official",
     "system": "http://example.org/identifier",

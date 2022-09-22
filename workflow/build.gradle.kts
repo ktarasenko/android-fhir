@@ -89,9 +89,11 @@ dependencies {
   androidTestImplementation(Dependencies.AndroidxTest.runner)
   androidTestImplementation(Dependencies.AndroidxTest.workTestingRuntimeKtx)
   androidTestImplementation(Dependencies.junit)
+  androidTestImplementation(Dependencies.jsonAssert)
   androidTestImplementation(Dependencies.truth)
   androidTestImplementation(Dependencies.xmlUnit)
   androidTestImplementation(project(":testing"))
+  androidTestImplementation(project(":artifact"))
   androidTestImplementation(project(":workflow-testing"))
 
   api(Dependencies.HapiFhir.structuresR4) { exclude(module = "junit") }

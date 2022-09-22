@@ -1,10 +1,9 @@
-package com.google.android.fhir.artifact
+package com.google.android.fhir.workflow
 
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import ca.uhn.fhir.context.FhirContext
 import com.google.android.fhir.FhirEngineProvider
-import com.google.android.fhir.workflow.FhirOperator
 import com.google.common.truth.Truth.assertThat
 import java.io.FileInputStream
 import kotlinx.coroutines.runBlocking
