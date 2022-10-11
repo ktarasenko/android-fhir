@@ -4,11 +4,13 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import ca.uhn.fhir.context.FhirContext
 import com.google.android.fhir.FhirEngineProvider
+import com.google.android.fhir.workflow.testing.CqlBuilder
 import com.google.common.truth.Truth.assertThat
 import java.io.FileInputStream
 import kotlinx.coroutines.runBlocking
 import org.cqframework.fhir.npm.NpmPackageManager
 import org.hl7.fhir.r4.model.Bundle
+import org.hl7.fhir.r4.model.Coding
 import org.hl7.fhir.r4.model.ImplementationGuide
 import org.hl7.fhir.r4.model.Library
 import org.hl7.fhir.r4.model.Parameters
@@ -19,6 +21,7 @@ import org.hl7.fhir.utilities.npm.NpmPackage
 
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.opencds.cqf.cql.evaluator.fhir.adapter.r4.AdapterFactory
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -30,6 +33,7 @@ class NpmManagerTest {
 
   private val fhirContext = FhirContext.forR4()
   private val jsonParser = fhirContext.newJsonParser()
+  private val libraryContentProvider = FhirEngineLibraryContentProvider(AdapterFactory())
   private val loader = NpmPackage.ITransformingLoader {
     runBlocking {
       try {
@@ -48,7 +52,10 @@ class NpmManagerTest {
 
   private fun loadResource(resource: Resource) {
     when (resource.resourceType) {
-      ResourceType.Library -> fhirOperator.loadLib(resource as Library)
+      ResourceType.Library -> {
+        fhirOperator.loadLib(resource as Library)
+        libraryContentProvider.libs[(resource).name] = resource
+      }
       ResourceType.Bundle -> (resource as Bundle).entry.forEach { loadResource(it.resource) }
       else -> runBlocking { fhirEngine.create(resource) }
     }
@@ -60,7 +67,9 @@ class NpmManagerTest {
 
   @Test
   fun importCQL() {
-    val sourceIg = createFakeIgWithDependencies(listOf("hl7.fhir.us.cqfmeasures" to "3.0.0"))
+    val sourceIg = createFakeIgWithDependencies(
+      listOf("hl7.fhir.us.cqfmeasures" to "3.0.0")
+    )
 
     NpmPackageManager.fromResource(
         ApplicationProvider.getApplicationContext(),
@@ -79,7 +88,31 @@ class NpmManagerTest {
         setOf("SDE Sex")
       ) as Parameters
 
-    assertThat(results.getParameter("SDE Sex")).isNotNull()
+    assertThat((results.getParameter("SDE Sex") as Coding).display).isEqualTo("Female")
+
+
+    val cql = """
+      library TestLibrary version '1.0.0'
+      using FHIR version '4.0.1'
+  
+      include "SupplementalDataElements" version '2.0.000' called SDE
+  
+      context Patient
+
+      define "TEST Gender":
+        SDE."SDE Sex"
+      
+    """.trimIndent()
+
+    loadResource(CqlBuilder.compileAndBuild(cql, libraryContentProvider))
+    val results1 =
+      fhirOperator.evaluateLibrary(
+        "http://localhost/Library/TestLibrary|1.0.0",
+        "charity-otala-1",
+        setOf("TEST Gender")
+      ) as Parameters
+
+    assertThat((results1.getParameter("TEST Gender") as Coding).display).isEqualTo("Female")
   }
 
 

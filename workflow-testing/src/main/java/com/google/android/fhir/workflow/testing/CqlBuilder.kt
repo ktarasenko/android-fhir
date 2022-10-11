@@ -23,6 +23,7 @@ import java.io.StringReader
 import org.cqframework.cql.cql2elm.CqlTranslator
 import org.cqframework.cql.cql2elm.CqlTranslatorOptions
 import org.cqframework.cql.cql2elm.LibraryManager
+import org.cqframework.cql.cql2elm.LibrarySourceProvider
 import org.cqframework.cql.cql2elm.ModelManager
 import org.cqframework.cql.cql2elm.quick.FhirLibrarySourceProvider
 import org.fhir.ucum.UcumEssenceService
@@ -47,8 +48,8 @@ object CqlBuilder : Loadable() {
    * @param cqlText the CQL Library
    * @return a [CqlTranslator] object that contains the elm representation of the library inside it.
    */
-  fun compile(cqlText: InputStream): CqlTranslator {
-    return compile(load(cqlText))
+  fun compile(cqlText: InputStream,librarySourceProvider: LibrarySourceProvider? = null): CqlTranslator {
+    return compile(load(cqlText), librarySourceProvider)
   }
 
   /**
@@ -57,11 +58,14 @@ object CqlBuilder : Loadable() {
    * @param cqlText the CQL Library
    * @return a [CqlTranslator] object that contains the elm representation of the library inside it.
    */
-  fun compile(cqlText: String): CqlTranslator {
+  fun compile(cqlText: String, librarySourceProvider: LibrarySourceProvider? = null): CqlTranslator {
     val modelManager = ModelManager()
     val libraryManager =
       LibraryManager(modelManager).apply {
         librarySourceLoader.registerProvider(FhirLibrarySourceProvider())
+        if (librarySourceProvider != null){
+          librarySourceLoader.registerProvider(librarySourceProvider)
+        }
       }
 
     val translator =
@@ -166,9 +170,40 @@ object CqlBuilder : Loadable() {
    * @param cqlInputStream the CQL Library
    * @return the assembled FHIR Library
    */
+  fun compileAndBuild(cqlInputStream: InputStream, librarySourceProvider: LibrarySourceProvider? = null): Library {
+    val cqlText = load(cqlInputStream)
+    return compile(cqlText, librarySourceProvider).let {
+      assembleFhirLib(
+        cqlText,
+        it.toJson(),
+        it.toXml(),
+        it.toELM().identifier.id,
+        it.toELM().identifier.version
+      )
+    }
+  }
+  fun compileAndBuild(cqlText: String, librarySourceProvider: LibrarySourceProvider? = null): Library {
+    return compile(cqlText, librarySourceProvider).let {
+      assembleFhirLib(
+        cqlText,
+        it.toJson(),
+        it.toXml(),
+        it.toELM().identifier.id,
+        it.toELM().identifier.version
+      )
+    }
+  }
+
+  /**
+   * Compiles a CQL Text into ELM and assembles a FHIR Library that includes a Base64 representation
+   * of the JSON representation of the compiled ELM Library
+   *
+   * @param cqlInputStream the CQL Library
+   * @return the assembled FHIR Library
+   */
   fun compileAndBuild(cqlInputStream: InputStream): Library {
     val cqlText = load(cqlInputStream)
-    return compile(cqlText).let {
+    return compile(cqlText, null).let {
       assembleFhirLib(
         cqlText,
         it.toJson(),
@@ -186,7 +221,7 @@ object CqlBuilder : Loadable() {
   }
 
   class Compiler(val cqlText: String) {
-    fun compiles() = CompiledCql(cqlText, compile(cqlText))
+    fun compiles() = CompiledCql(cqlText, compile(cqlText, null))
   }
 
   class CompiledCql(val cqlText: String, private val translator: CqlTranslator) {
