@@ -68,7 +68,7 @@ class NpmManagerTest {
   @Test
   fun importCQL() {
     val sourceIg = createFakeIgWithDependencies(
-      listOf("hl7.fhir.us.cqfmeasures" to "3.0.0")
+      listOf(Triple("hl7.fhir.us.cqfmeasures", "3.0.0", null), Triple("fhir.cdc.opioid-mme-r4", "3.0.0", "http://fhir.org/guides/cdc/opioid-mme-r4"))
     )
 
     NpmPackageManager.fromResource(
@@ -123,13 +123,14 @@ class NpmManagerTest {
   private fun open(path: String) = NpmManagerTest::class.java.getResourceAsStream(path)!!
 
 
-  private fun createFakeIgWithDependencies(dependencies: List<Pair<String, String>>) =
+  private fun createFakeIgWithDependencies(dependencies: List<Triple<String, String, String?>>) =
     ImplementationGuide().apply {
       dependencies.forEach {
         addDependsOn(ImplementationGuide.ImplementationGuideDependsOnComponent()
                        .apply {
                          packageId = it.first
                          version = it.second
+                         uri = it.third
                        })
       }
     }
