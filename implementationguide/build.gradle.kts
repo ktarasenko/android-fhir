@@ -1,6 +1,7 @@
 plugins {
   id(Plugins.BuildPlugins.androidLib)
   id(Plugins.BuildPlugins.kotlinAndroid)
+  id(Plugins.BuildPlugins.kotlinKapt)
   id(Plugins.BuildPlugins.mavenPublish)
   jacoco
 }
@@ -58,6 +59,26 @@ android {
   kotlinOptions { jvmTarget = Java.kotlinJvmTarget.toString() }
 
   configureJacocoTestOptions()
+}
+
+dependencies {
+  androidTestImplementation(Dependencies.AndroidxTest.core)
+  androidTestImplementation(Dependencies.AndroidxTest.runner)
+  androidTestImplementation(Dependencies.AndroidxTest.extJunitKtx)
+  androidTestImplementation(Dependencies.Kotlin.kotlinCoroutinesTest)
+  androidTestImplementation(Dependencies.junit)
+  androidTestImplementation(Dependencies.truth)
+
+  implementation(Dependencies.Kotlin.stdlib)
+  implementation(Dependencies.Lifecycle.liveDataKtx)
+  implementation(Dependencies.Room.ktx)
+  implementation(Dependencies.Room.runtime)
+  implementation(Dependencies.timber)
+
+  api(Dependencies.HapiFhir.structuresR4) { exclude(module = "junit") }
+
+  coreLibraryDesugaring(Dependencies.desugarJdkLibs)
+  kapt(Dependencies.Room.compiler)
 }
 
 configureDokka(Releases.ImplmentationGuide.artifactId, Releases.ImplmentationGuide.version)
