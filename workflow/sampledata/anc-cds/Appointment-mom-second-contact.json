@@ -1,0 +1,83 @@
+{
+  "resourceType": "Appointment",
+  "id": "mom-second-contact",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-appointment",
+      "http://fhir.org/guides/who/core/StructureDefinition/who-appointment",
+      "http://fhir.org/guides/who/anc-cds/StructureDefinition/anc-appointment"
+    ]
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Appointment</b></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Appointment \"mom-second-contact\" </p><p style=\"margin-bottom: 0px\">Profiles: <code>http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-appointment</code>, <a href=\"StructureDefinition-who-appointment.html\">WHO Appointment</a>, <a href=\"StructureDefinition-anc-appointment.html\">ANC Appointment</a></p></div><p><b>status</b>: booked</p><p><b>serviceCategory</b>: General Practice <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (service-category#gp)</span></p><p><b>serviceType</b>: General Discussion <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> ([not stated]#52)</span></p><p><b>appointmentType</b>: Unplanned Visit <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/3.1.0/CodeSystem-v2-0276.html\">appointmentReason</a>#FOLLOWUP)</span></p><p><b>reasonReference</b>: <a href=\"Condition-mom-pregnancy-second-contact.html\">Condition/mom-pregnancy-second-contact</a></p><p><b>description</b>: Antenatal care second contact</p><p><b>start</b>: Jul 26, 2019, 3:00:00 PM</p><p><b>minutesDuration</b>: 30</p><p><b>created</b>: 2019-06-24</p><blockquote><p><b>participant</b></p><p><b>actor</b>: <a href=\"Patient-mom-second-contact.html\">Patient/mom-second-contact: Charity Otala</a> \" OTALA\"</p><p><b>required</b>: required</p><p><b>status</b>: accepted</p></blockquote><blockquote><p><b>participant</b></p><p><b>type</b>: attender <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/3.1.0/CodeSystem-v3-ParticipationType.html\">ParticipationType</a>#ATND)</span></p><p><b>actor</b>: <a href=\"Practitioner-midwife-amina-second-contact.html\">Practitioner/midwife-amina-second-contact: Amina Midwife</a> \" MIDWIFE\"</p><p><b>required</b>: required</p><p><b>status</b>: accepted</p></blockquote></div>"
+  },
+  "status": "booked",
+  "serviceCategory": [
+    {
+      "coding": [
+        {
+          "system": "http://example.org/service-category",
+          "code": "gp",
+          "display": "General Practice"
+        }
+      ]
+    }
+  ],
+  "serviceType": [
+    {
+      "coding": [
+        {
+          "code": "52",
+          "display": "General Discussion"
+        }
+      ]
+    }
+  ],
+  "appointmentType": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/v2-0276",
+        "code": "FOLLOWUP",
+        "display": "Unplanned Visit"
+      }
+    ]
+  },
+  "reasonReference": [
+    {
+      "reference": "Condition/mom-pregnancy-second-contact"
+    }
+  ],
+  "description": "Antenatal care second contact",
+  "start": "2019-07-26T15:00:00Z",
+  "minutesDuration": 30,
+  "created": "2019-06-24",
+  "participant": [
+    {
+      "actor": {
+        "reference": "Patient/mom-second-contact",
+        "display": "Charity Otala"
+      },
+      "required": "required",
+      "status": "accepted"
+    },
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "ATND"
+            }
+          ]
+        }
+      ],
+      "actor": {
+        "reference": "Practitioner/midwife-amina-second-contact",
+        "display": "Amina Midwife"
+      },
+      "required": "required",
+      "status": "accepted"
+    }
+  ]
+}

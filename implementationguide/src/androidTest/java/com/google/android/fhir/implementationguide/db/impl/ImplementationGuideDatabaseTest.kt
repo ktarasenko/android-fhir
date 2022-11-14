@@ -24,7 +24,6 @@ import com.google.android.fhir.implementationguide.db.impl.entities.Implementati
 import com.google.android.fhir.implementationguide.db.impl.entities.ResourceEntity
 import com.google.common.truth.Truth.assertThat
 import java.io.File
-import java.util.UUID
 import kotlinx.coroutines.runBlocking
 import org.hl7.fhir.r4.model.ResourceType
 import org.junit.After
@@ -59,19 +58,20 @@ internal class ImplementationGuideDatabaseTest {
       val resourceEntity =
         ResourceEntity(
           0L,
-          UUID.randomUUID(),
           ResourceType.ValueSet,
           RES_ID_1,
           "http://url.com/ValueSet/Name/1.0.0",
+          RES_ID_1,
           "1.0.0",
           File("resId"),
           igId
         )
       igDao.insert(resourceEntity)
-
-      assertThat(igDao.getResourcesByImplementationGuide(igId).map { it.resourceId })
+      assertThat(igDao.getResources(ResourceType.ValueSet, listOf(igId)).map { it.resourceId })
         .containsExactly(RES_ID_1)
-      assertThat(igDao.getResourcesByImplementationGuide(-1L)).isEmpty()
+      assertThat(igDao.getResources(ResourceType.Account, listOf(igId))).isEmpty()
+
+      assertThat(igDao.getResources(listOf(-1L))).isEmpty()
     }
   }
 
@@ -82,10 +82,10 @@ internal class ImplementationGuideDatabaseTest {
       val resourceEntity =
         ResourceEntity(
           0L,
-          UUID.randomUUID(),
           ResourceType.ValueSet,
           RES_ID_1,
           "http://url.com/ValueSet/Name/1.0.0",
+          RES_ID_1,
           "1.0.0",
           File("resId"),
           igId
@@ -95,7 +95,7 @@ internal class ImplementationGuideDatabaseTest {
       igDao.deleteImplementationGuide(IG_NAME, IG_VERSION)
 
       assertThat(igDao.getImplementationGuides()).isEmpty()
-      assertThat(igDao.getResourcesByImplementationGuide(igId)).isEmpty()
+      assertThat(igDao.getResources(listOf(igId))).isEmpty()
     }
   }
 

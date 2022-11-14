@@ -1,0 +1,35 @@
+{
+  "resourceType": "Practitioner",
+  "id": "jane",
+  "meta": {
+    "profile": [
+      "http://fhir.org/guides/who/anc-cds/StructureDefinition/anc-practitioner",
+      "http://fhir.org/guides/who/core/StructureDefinition/who-practitioner"
+    ]
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Practitioner</b></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Practitioner \"jane\" </p><p style=\"margin-bottom: 0px\">Profiles: <a href=\"StructureDefinition-anc-practitioner.html\">ANC Practitioner</a>, <a href=\"StructureDefinition-who-practitioner.html\">WHO Practitioner</a></p></div><p><b>active</b>: true</p><p><b>name</b>: Jane Nurse </p><p><b>address</b>: 534 Erewhon St PleasantVille Vic 3999 (HOME)</p><p><b>gender</b>: female</p></div>"
+  },
+  "active": true,
+  "name": [
+    {
+      "family": "Nurse",
+      "given": [
+        "Jane"
+      ]
+    }
+  ],
+  "address": [
+    {
+      "use": "home",
+      "line": [
+        "534 Erewhon St"
+      ],
+      "city": "PleasantVille",
+      "state": "Vic",
+      "postalCode": "3999"
+    }
+  ],
+  "gender": "female"
+}

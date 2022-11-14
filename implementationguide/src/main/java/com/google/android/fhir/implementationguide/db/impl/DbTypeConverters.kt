@@ -23,5 +23,5 @@ internal object DbTypeConverters {
 
   @JvmStatic @TypeConverter fun filePathToFile(filePath: String) = File(filePath)
 
-  @JvmStatic @TypeConverter fun fileToFilePath(file: File) = file.path
+  @JvmStatic @TypeConverter fun fileToFilePath(file: File): String = file.path
 }

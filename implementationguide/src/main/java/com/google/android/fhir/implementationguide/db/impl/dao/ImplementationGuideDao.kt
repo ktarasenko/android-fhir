@@ -24,9 +24,10 @@ import androidx.room.Query
 import androidx.room.Transaction
 import com.google.android.fhir.implementationguide.db.impl.entities.ImplementationGuideEntity
 import com.google.android.fhir.implementationguide.db.impl.entities.ResourceEntity
+import org.hl7.fhir.r4.model.ResourceType
 
 @Dao
-internal abstract class ImplementationGuideDao {
+abstract class ImplementationGuideDao {
 
   @Query("SELECT * from ImplementationGuideEntity")
   internal abstract suspend fun getImplementationGuides(): List<ImplementationGuideEntity>
@@ -34,12 +35,57 @@ internal abstract class ImplementationGuideDao {
   @Query("SELECT * from ImplementationGuideEntity WHERE name = :name AND version = :version")
   internal abstract suspend fun getImplementationGuide(
     name: String,
-    version: String
+    version: String,
   ): ImplementationGuideEntity
 
   @Query("SELECT * from ResourceEntity WHERE implementationGuideId IN (:igId)")
-  internal abstract suspend fun getResourcesByImplementationGuide(
-    vararg igId: Long
+  internal abstract suspend fun getResources(
+    igId: List<Long>,
+  ): List<ResourceEntity>
+
+  @Query(
+    "SELECT * from ResourceEntity WHERE implementationGuideId IN (:igId) AND resourceType = :resourceType"
+  )
+  internal abstract suspend fun getResources(
+    resourceType: ResourceType,
+    igId: List<Long>,
+  ): List<ResourceEntity>
+
+  @Query(
+    "SELECT * from ResourceEntity WHERE implementationGuideId IN (:igId) AND resourceType = :resourceType AND resourceId = :resourceId"
+  )
+  internal abstract suspend fun getResourcesWithResourceId(
+    resourceType: ResourceType,
+    resourceId: String,
+    igId: List<Long>,
+  ): List<ResourceEntity>
+
+  @Query(
+    "SELECT * from ResourceEntity WHERE implementationGuideId IN (:igId) AND resourceType = :resourceType AND url = :url"
+  )
+  internal abstract suspend fun getResourcesWithUrl(
+    resourceType: ResourceType,
+    url: String,
+    igId: List<Long>,
+  ): List<ResourceEntity>
+
+  @Query(
+    "SELECT * from ResourceEntity WHERE implementationGuideId IN (:igId) AND resourceType = :resourceType AND name = :name"
+  )
+  internal abstract suspend fun getResourcesWithName(
+    resourceType: ResourceType,
+    name: String,
+    igId: List<Long>,
+  ): List<ResourceEntity>
+
+  @Query(
+    "SELECT * from ResourceEntity WHERE implementationGuideId IN (:igId) AND resourceType = :resourceType AND name = :name AND version = :version"
+  )
+  internal abstract suspend fun getResourcesWithNameAndVersion(
+    resourceType: ResourceType,
+    name: String,
+    version: String,
+    igId: List<Long>,
   ): List<ResourceEntity>
 
   @Delete

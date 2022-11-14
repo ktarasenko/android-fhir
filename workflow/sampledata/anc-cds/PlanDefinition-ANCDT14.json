@@ -1,0 +1,151 @@
+{
+  "resourceType": "PlanDefinition",
+  "id": "ANCDT14",
+  "text": {
+    "status": "extensions",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">\n    <table class=\"grid dict\">\n        \n        <tr>\n            <th scope=\"row\"><b>Id: </b></th>\n            <td style=\"padding-left: 4px;\">ANCDT14</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Url: </b></th>\n            <td style=\"padding-left: 4px;\">http://fhir.org/guides/who/anc-cds/PlanDefinition/ANCDT14</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Version: </b></th>\n            <td style=\"padding-left: 4px;\">0.3.0</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Identifier: </b></th>\n            <td style=\"padding-left: 4px;\">\n                \n                \n                <p style=\"margin-bottom: 5px;\">\n                    <b>value: </b> <span>ANC.DT.14</span>\n                </p>\n                \n            </td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Name: </b></th>\n            <td style=\"padding-left: 4px;\">ANCDT14</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Title: </b></th>\n            <td style=\"padding-left: 4px;\">ANC.DT.14 Other</td>\n        </tr>\n        \n        \n        \n        <tr>\n            <th scope=\"row\"><b>Status: </b></th>\n            <td style=\"padding-left: 4px;\">active</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Experimental: </b></th>\n            <td style=\"padding-left: 4px;\">false</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Type: </b></th>\n            <td style=\"padding-left: 4px;\">\n                \n                    \n                        \n                        <p style=\"margin-bottom: 5px;\">\n                            <b>system: </b> <span>http://terminology.hl7.org/CodeSystem/plan-definition-type</span>\n                        </p>\n                        \n                        \n                        <p style=\"margin-bottom: 5px;\">\n                            <b>code: </b> <span>eca-rule</span>\n                        </p>\n                        \n                        \n                    \n                \n                \n            </td>\n        </tr>\n        \n        \n        \n        <tr>\n            <th scope=\"row\"><b>Date: </b></th>\n            <td style=\"padding-left: 4px;\">2021-06-11T23:02:59-06:00</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Publisher: </b></th>\n            <td style=\"padding-left: 4px;\">World Health Organization (WHO)</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Description: </b></th>\n            <td style=\"padding-left: 4px;\">Additional blood tests</td>\n        </tr>\n        \n        \n        \n        \n        <tr>\n            <th scope=\"row\"><b>Use Context: </b></th>\n            <td style=\"padding-left: 4px;\">\n                <table class=\"grid-dict\">\n                    <tr><th><b>code</b></th><th><b>value</b></th><th><b>display</b></th></tr>\n                    \n                      <tr>\n                        <td>task</td>\n                        <td>ANC.B10.4.</td>\n                        <td>Diagnosis and treatment</td>\n                      </tr>\n                    \n                </table>\n            </td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Jurisdiction: </b></th>\n            <td style=\"padding-left: 4px;\">001</td>\n        </tr>\n        \n        \n        \n        \n        \n        \n        \n        \n\n        \n        <tr>\n          <th scope=\"row\"><b>Libraries: </b></th>\n          <td style=\"padding-left: 4px;\">\n            <table class=\"grid-dict\">\n              \n                <tr><td>http://fhir.org/guides/who/anc-cds/Library/ANCDT14</td></tr>\n              \n            </table>\n          </td>\n        </tr>\n        \n\n        \n        <tr>\n          <th scope=\"row\"><b>Actions: </b></th>\n          <td style=\"padding-left: 4px;\">\n            <table class=\"grid-dict\">\n              \n                <tr>\n                  <td>\n                    <b> ANC.DT.14 Other:</b> <br/>\n                    <b>When:</b> <i>named-event:</i> ANC.B10.4. Diagnosis and treatment<br/>\n                    \n                    \n                      <b>Then:</b>\n                      <table class=\"grid-dict\">\n                        \n                          <tr>\n                            <td>\n                              Hematocrit levels too low!<br/>\n                              \n                              <b>If:</b> <i>applicability:</i> \"Hematocrit (Ht)\" &lt; 20% <i>(Should Follow-up steps/investigations: clinician's discretion)</i><br/>\n                              \n                                \n                              \n                            </td>\n                          </tr>\n                        \n                          <tr>\n                            <td>\n                              White blood cell count too high!<br/>\n                              \n                              <b>If:</b> <i>applicability:</i> \"White blood cell (WBC) count\" &gt; 16 000 <i>(Should Follow-up steps/investigations: clinician's discretion 2)</i><br/>\n                              \n                                \n                              \n                            </td>\n                          </tr>\n                        \n                          <tr>\n                            <td>\n                              Platelet count too low! <br/>\n                              \n                              <b>If:</b> <i>applicability:</i> \"Platelet count\" &lt; 100 000 cells/microlitre (&mu;l) <i>(Should Follow-up steps/investigations: clinician's discretion 3)</i><br/>\n                              \n                                \n                              \n                            </td>\n                          </tr>\n                        \n                      </table>\n                    \n                  </td>\n                </tr>\n              \n            </table>\n          </td>\n        </tr>\n        \n    </table>\n</div>"
+  },
+  "url": "http://fhir.org/guides/who/anc-cds/PlanDefinition/ANCDT14",
+  "identifier": [
+    {
+      "use": "official",
+      "value": "ANC.DT.14"
+    }
+  ],
+  "version": "0.3.0",
+  "name": "ANCDT14",
+  "title": "ANC.DT.14 Other",
+  "type": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type",
+        "code": "eca-rule"
+      }
+    ]
+  },
+  "status": "active",
+  "experimental": false,
+  "date": "2021-06-11T23:02:59-06:00",
+  "publisher": "World Health Organization (WHO)",
+  "contact": [
+    {
+      "telecom": [
+        {
+          "system": "url",
+          "value": "https://www.who.int"
+        }
+      ]
+    }
+  ],
+  "description": "Additional blood tests",
+  "useContext": [
+    {
+      "code": {
+        "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+        "code": "task",
+        "display": "Workflow Task"
+      },
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/activity-codes",
+            "code": "ANC.B10.4.",
+            "display": "Diagnosis and treatment"
+          }
+        ]
+      }
+    }
+  ],
+  "jurisdiction": [
+    {
+      "coding": [
+        {
+          "system": "http://unstats.un.org/unsd/methods/m49/m49.htm",
+          "code": "001"
+        }
+      ]
+    }
+  ],
+  "library": [
+    "http://fhir.org/guides/who/anc-cds/Library/ANCDT14"
+  ],
+  "action": [
+    {
+      "title": "ANC.DT.14 Other",
+      "trigger": [
+        {
+          "type": "named-event",
+          "name": "ANC.B10.4. Diagnosis and treatment"
+        }
+      ],
+      "action": [
+        {
+          "id": "1",
+          "title": "Follow-up steps/investigations: clinician's discretion",
+          "description": "Follow-up steps/investigations: clinician's discretion",
+          "textEquivalent": "Hematocrit levels too low!",
+          "documentation": [
+            {
+              "type": "citation",
+              "label": "Managing complications guide (IMPAC) (2017): Sections S-7, S-47, S-151 (5)"
+            }
+          ],
+          "condition": [
+            {
+              "kind": "applicability",
+              "expression": {
+                "description": "\"Hematocrit (Ht)\" < 20%",
+                "language": "text/cql-identifier",
+                "expression": "Should Follow-up steps/investigations: clinician's discretion"
+              }
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "title": "Follow-up steps/investigations: clinician's discretion",
+          "description": "Follow-up steps/investigations: clinician's discretion 2",
+          "textEquivalent": "White blood cell count too high!",
+          "documentation": [
+            {
+              "type": "citation",
+              "label": "Managing complications guide (IMPAC) (2017): Section S-151 (5)"
+            }
+          ],
+          "condition": [
+            {
+              "kind": "applicability",
+              "expression": {
+                "description": "\"White blood cell (WBC) count\" > 16 000",
+                "language": "text/cql-identifier",
+                "expression": "Should Follow-up steps/investigations: clinician's discretion 2"
+              }
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "title": "Follow-up steps/investigations: clinician's discretion",
+          "description": "Follow-up steps/investigations: clinician's discretion 3",
+          "textEquivalent": "Platelet count too low! ",
+          "documentation": [
+            {
+              "type": "citation",
+              "label": "Managing complications guide (IMPAC) (2017): Section S-53 (5)"
+            }
+          ],
+          "condition": [
+            {
+              "kind": "applicability",
+              "expression": {
+                "description": "\"Platelet count\" < 100 000 cells/microlitre (μl)",
+                "language": "text/cql-identifier",
+                "expression": "Should Follow-up steps/investigations: clinician's discretion 3"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

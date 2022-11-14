@@ -1,0 +1,66 @@
+{
+  "resourceType": "Encounter",
+  "id": "mom-second-contact",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Encounter</b></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Encounter \"mom-second-contact\" </p></div><p><b>status</b>: in-progress</p><p><b>class</b>: ambulatory (Details: http://terminology.hl7.org/CodeSystem/v3-ActCode code AMB = 'ambulatory', stated as 'ambulatory')</p><p><b>type</b>: Antenatal care contact <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-anc-custom-codes.html\">Extended Codes CodeSystem</a>#Reason for coming to facility \"Reason for coming to facility\")</span></p><p><b>subject</b>: <a href=\"Patient-mom-second-contact.html\">Patient/mom-second-contact</a> \" OTALA\"</p><p><b>episodeOfCare</b>: <a href=\"EpisodeOfCare-mom-pregnancy-episode-second-contact.html\">EpisodeOfCare/mom-pregnancy-episode-second-contact</a></p><h3>Participants</h3><table class=\"grid\"><tr><td>-</td><td><b>Type</b></td><td><b>Individual</b></td></tr><tr><td>*</td><td>primary performer <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/3.1.0/CodeSystem-v3-ParticipationType.html\">ParticipationType</a>#PPRF)</span></td><td><a href=\"Practitioner-midwife-amina-second-contact.html\">Practitioner/midwife-amina-second-contact</a> \" MIDWIFE\"</td></tr></table><p><b>period</b>: 2019-06-06 --&gt; (ongoing)</p><p><b>reasonCode</b>: Prenatal finding (finding) <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#118189007)</span></p></div>"
+  },
+  "status": "in-progress",
+  "class": {
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "code": "AMB",
+    "display": "ambulatory"
+  },
+  "type": [
+    {
+      "coding": [
+        {
+          "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/anc-custom-codes",
+          "code": "Reason for coming to facility",
+          "display": "Reason for coming to facility"
+        }
+      ],
+      "text": "Antenatal care contact"
+    }
+  ],
+  "subject": {
+    "reference": "Patient/mom-second-contact"
+  },
+  "episodeOfCare": [
+    {
+      "reference": "EpisodeOfCare/mom-pregnancy-episode-second-contact"
+    }
+  ],
+  "participant": [
+    {
+      "type": [
+        {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",
+              "code": "PPRF",
+              "display": "primary performer"
+            }
+          ]
+        }
+      ],
+      "individual": {
+        "reference": "Practitioner/midwife-amina-second-contact"
+      }
+    }
+  ],
+  "period": {
+    "start": "2019-06-06"
+  },
+  "reasonCode": [
+    {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "118189007",
+          "display": "Prenatal finding (finding)"
+        }
+      ]
+    }
+  ]
+}

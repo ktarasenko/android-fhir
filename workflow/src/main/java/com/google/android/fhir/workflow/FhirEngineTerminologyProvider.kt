@@ -46,23 +46,17 @@ class FhirEngineTerminologyProvider(
     try {
       return expand(valueSet).any { it.code == code.code && it.system == code.system }
     } catch (e: Exception) {
-      throw TerminologyProviderException(
-        "Error performing membership check of Code: $code in ValueSet: ${valueSet.id}",
-        e
-      )
+      return false
     }
   }
 
-  override fun expand(valueSetInfo: ValueSetInfo): MutableIterable<Code> {
+  override fun expand(valueSetInfo: ValueSetInfo): Iterable<Code> {
     try {
       val valueSet = resolveValueSet(valueSetInfo)
       return ValueSetUtil.getCodesInExpansion(fhirContext, valueSet)
         ?: ValueSetUtil.getCodesInCompose(fhirContext, valueSet)
     } catch (e: Exception) {
-      throw TerminologyProviderException(
-        "Error performing expansion of ValueSet: ${valueSetInfo.id}",
-        e
-      )
+      return emptyList()
     }
   }
 

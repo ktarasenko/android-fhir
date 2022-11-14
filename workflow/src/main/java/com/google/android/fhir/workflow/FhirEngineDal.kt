@@ -60,7 +60,8 @@ class FhirEngineDal(private val fhirEngine: FhirEngine) : FhirDal {
     runBlocking {
       when (resourceType) {
         "Measure" -> fhirEngine.search<Measure> { filter(Measure.URL, { value = url }) }
-        "Library" -> listOf(libs[url] as Library)
+        "Library" -> listOfNotNull(libs[url] as? Library)
+        // "Library" -> fhirEngine.search<Library> { filter(Library.URL, { value = url }) }
         else -> listOf()
       }.toMutableList()
     }

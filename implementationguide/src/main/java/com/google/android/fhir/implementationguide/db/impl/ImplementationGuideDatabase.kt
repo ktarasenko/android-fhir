@@ -29,6 +29,6 @@ import com.google.android.fhir.implementationguide.db.impl.entities.ResourceEnti
   exportSchema = false
 )
 @TypeConverters(DbTypeConverters::class)
-internal abstract class ImplementationGuideDatabase : RoomDatabase() {
+abstract class ImplementationGuideDatabase : RoomDatabase() {
   abstract fun implementationGuideDao(): ImplementationGuideDao
 }

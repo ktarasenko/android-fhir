@@ -1,0 +1,87 @@
+{
+  "resourceType": "ServiceRequest",
+  "id": "mom-vitals-request-second-contact",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: ServiceRequest</b></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource ServiceRequest \"mom-vitals-request-second-contact\" </p></div><p><b>status</b>: active</p><p><b>intent</b>: plan</p><p><b>code</b>: Medical procedure related to reproduction (procedure) <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#4589007)</span></p><p><b>subject</b>: <a href=\"Patient-mom-second-contact.html\">Patient/mom-second-contact</a> \" OTALA\"</p><p><b>encounter</b>: <a href=\"Encounter-mom-second-contact.html\">Encounter/mom-second-contact</a></p><p><b>occurrence</b>: 2019-06-24 04:16:00-0700</p><p><b>requester</b>: <a href=\"Practitioner-midwife-amina-second-contact.html\">Practitioner/midwife-amina-second-contact</a> \" MIDWIFE\"</p><p><b>performer</b>: <a href=\"Practitioner-midwife-amina-second-contact.html\">Practitioner/midwife-amina-second-contact</a> \" MIDWIFE\"</p></div>"
+  },
+  "contained": [
+    {
+      "resourceType": "Observation",
+      "id": "mom-vitals-observation-second-contact",
+      "status": "final",
+      "code": {
+        "coding": [
+          {
+            "system": "http://hl7.org/fhir/codesystem-observation-category.html",
+            "code": "vital-signs",
+            "display": "vital-signs"
+          }
+        ]
+      },
+      "subject": {
+        "reference": "Patient/mom-second-contact"
+      },
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0136",
+            "code": "Y",
+            "display": "Yes"
+          }
+        ]
+      }
+    },
+    {
+      "resourceType": "Specimen",
+      "id": "clinical-exam-2",
+      "identifier": [
+        {
+          "system": "http://acme.org/specimens",
+          "value": "20150107-0012"
+        }
+      ],
+      "type": {
+        "coding": [
+          {
+            "system": "http://snomed.info/sct",
+            "code": "vitalsigns",
+            "display": "VitalSigns"
+          }
+        ]
+      },
+      "subject": {
+        "reference": "Patient/example"
+      },
+      "collection": {
+        "collectedDateTime": "2015-08-16T06:40:17Z"
+      }
+    }
+  ],
+  "status": "active",
+  "intent": "plan",
+  "code": {
+    "coding": [
+      {
+        "system": "http://snomed.info/sct",
+        "code": "4589007"
+      }
+    ],
+    "text": "Medical procedure related to reproduction (procedure)"
+  },
+  "subject": {
+    "reference": "Patient/mom-second-contact"
+  },
+  "encounter": {
+    "reference": "Encounter/mom-second-contact"
+  },
+  "occurrenceDateTime": "2019-06-24T16:16:00-07:00",
+  "requester": {
+    "reference": "Practitioner/midwife-amina-second-contact"
+  },
+  "performer": [
+    {
+      "reference": "Practitioner/midwife-amina-second-contact"
+    }
+  ]
+}

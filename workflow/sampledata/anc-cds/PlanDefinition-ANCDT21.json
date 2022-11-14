@@ -1,0 +1,151 @@
+{
+  "resourceType": "PlanDefinition",
+  "id": "ANCDT21",
+  "text": {
+    "status": "extensions",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">\n    <table class=\"grid dict\">\n        \n        <tr>\n            <th scope=\"row\"><b>Id: </b></th>\n            <td style=\"padding-left: 4px;\">ANCDT21</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Url: </b></th>\n            <td style=\"padding-left: 4px;\">http://fhir.org/guides/who/anc-cds/PlanDefinition/ANCDT21</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Version: </b></th>\n            <td style=\"padding-left: 4px;\">0.3.0</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Identifier: </b></th>\n            <td style=\"padding-left: 4px;\">\n                \n                \n                <p style=\"margin-bottom: 5px;\">\n                    <b>value: </b> <span>ANC.DT.21</span>\n                </p>\n                \n            </td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Name: </b></th>\n            <td style=\"padding-left: 4px;\">ANCDT21</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Title: </b></th>\n            <td style=\"padding-left: 4px;\">ANC.DT.21 Syphilis diagnosis</td>\n        </tr>\n        \n        \n        \n        <tr>\n            <th scope=\"row\"><b>Status: </b></th>\n            <td style=\"padding-left: 4px;\">active</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Experimental: </b></th>\n            <td style=\"padding-left: 4px;\">false</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Type: </b></th>\n            <td style=\"padding-left: 4px;\">\n                \n                    \n                        \n                        <p style=\"margin-bottom: 5px;\">\n                            <b>system: </b> <span>http://terminology.hl7.org/CodeSystem/plan-definition-type</span>\n                        </p>\n                        \n                        \n                        <p style=\"margin-bottom: 5px;\">\n                            <b>code: </b> <span>eca-rule</span>\n                        </p>\n                        \n                        \n                    \n                \n                \n            </td>\n        </tr>\n        \n        \n        \n        <tr>\n            <th scope=\"row\"><b>Date: </b></th>\n            <td style=\"padding-left: 4px;\">2021-06-11T23:25:04-06:00</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Publisher: </b></th>\n            <td style=\"padding-left: 4px;\">World Health Organization (WHO)</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Description: </b></th>\n            <td style=\"padding-left: 4px;\">If the woman tests positive for syphilis, provide counselling and treatment as needed</td>\n        </tr>\n        \n        \n        \n        \n        <tr>\n            <th scope=\"row\"><b>Use Context: </b></th>\n            <td style=\"padding-left: 4px;\">\n                <table class=\"grid-dict\">\n                    <tr><th><b>code</b></th><th><b>value</b></th><th><b>display</b></th></tr>\n                    \n                      <tr>\n                        <td>task</td>\n                        <td>ANC.B10.4.</td>\n                        <td>Diagnosis and treatment</td>\n                      </tr>\n                    \n                </table>\n            </td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Jurisdiction: </b></th>\n            <td style=\"padding-left: 4px;\">001</td>\n        </tr>\n        \n        \n        \n        \n        \n        \n        \n        \n\n        \n        <tr>\n          <th scope=\"row\"><b>Libraries: </b></th>\n          <td style=\"padding-left: 4px;\">\n            <table class=\"grid-dict\">\n              \n                <tr><td>http://fhir.org/guides/who/anc-cds/Library/ANCDT21</td></tr>\n              \n            </table>\n          </td>\n        </tr>\n        \n\n        \n        <tr>\n          <th scope=\"row\"><b>Actions: </b></th>\n          <td style=\"padding-left: 4px;\">\n            <table class=\"grid-dict\">\n              \n                <tr>\n                  <td>\n                    <b> ANC.DT.21 Syphilis diagnosis:</b> <br/>\n                    <b>When:</b> <i>named-event:</i> ANC.B10.4. Diagnosis and treatment<br/>\n                    \n                    \n                      <b>Then:</b>\n                      <table class=\"grid-dict\">\n                        \n                          <tr>\n                            <td>\n                              Procedure: Provide first dose of treatment and refer for additional testing\n– If primary or secondary stage of syphilis, give single dose of benzathine penicillin 2,400,000 IU\n– If late or unknown stage of syphilis, give one dose of benzathine penicillin 2,400,000 IU weekly for 3 consecutive weeks\n– Advise on treating partner\n– Encourage HIV testing and counselling\n– Reinforce use of condoms\n– Proceed to further testing with an RPR test\n\"In high-prevalence settings, provider-initiated testing and counselling (PITC) for HIV should be considered a routine component of the package of care for pregnant women in all antenatal care settings. In low-prevalence settings, PITC can be considered for pregnant women in antenatal care settings as a key component of the effort to eliminate mother-to-child transmission of HIV, and to integrate HIV testing with syphilis, viral or other key tests, as relevant to the setting, and to strengthen the underlying maternal and child health systems\" (2)<br/>\n                              \n                              <b>If:</b> <i>applicability:</i> (\"Population prevalence of syphilis in pregnant women\" ≥ 5%)\n  AND (\"Syphilis test type\" = \"Rapid syphilis test (RST)\")\n  AND (Syphilis test result\" = \"Syphilis positive\") <i>(Should Conduct syphilis counselling and further testing)</i><br/>\n                              \n                                \n                              \n                            </td>\n                          </tr>\n                        \n                          <tr>\n                            <td>\n                              Provide treatment according to the clinical phase of syphilis:\n– If primary or secondary stage of syphilis, give single dose of benzathine penicillin 2,400,000 IU\n– If late or unknown stage of syphilis, give one dose of benzathine penicillin 2,400,000 IU weekly for 3 consecutive weeks\n– Advise on treating partner\n– Encourage HIV testing and counselling\n– Reinforce use of condoms\n– Proceed to further testing with an RPR test\n\"In high-prevalence settings, provider-initiated testing and counselling (PITC) for HIV should be considered a routine component of the package of care for pregnant women in all antenatal care settings. In low-prevalence settings, PITC can be considered for pregnant women in antenatal care settings as a key component of the effort to eliminate mother-to-child transmission of HIV, and to integrate HIV testing with syphilis, viral or other key tests, as relevant to the setting, and to strengthen the underlying maternal and child health systems\" (2)<br/>\n                              \n                              <b>If:</b> <i>applicability:</i> (\"Population prevalence of syphilis in pregnant women\" ≥ 5%)\n  AND (\"Syphilis test type\" = \"Rapid plasma reagin (RPR) test\")\n  AND (Syphilis test result\" = \"Syphilis positive\") <i>(Should Conduct syphilis counselling and further testing 2)</i><br/>\n                              \n                                \n                              \n                            </td>\n                          </tr>\n                        \n                          <tr>\n                            <td>\n                              Procedure:\n– If primary or secondary stage of syphilis, give single dose of benzathine penicillin 2,400,000 IU\n– If late or unknown stage of syphilis, give one dose of benzathine penicillin 2,400,000 IU weekly for 3 consecutive weeks\n– Advise on treating partner\n– Encourage HIV testing and counselling\n– Reinforce use of condoms\n\"In high-prevalence settings, provider-initiated testing and counselling (PITC) for HIV should be considered a routine component of the package of care for pregnant women in all antenatal care settings. In low-prevalence settings, PITC can be considered for pregnant women in antenatal care settings as a key component of the effort to eliminate mother-to-child transmission of HIV, and to integrate HIV testing with syphilis, viral or other key tests, as relevant to the setting, and to strengthen the underlying maternal and child health systems\" (2)<br/>\n                              \n                              <b>If:</b> <i>applicability:</i> (\"Population prevalence of syphilis in pregnant women\" &lt; 5%)\n  AND (\"Syphilis test result\" = \"Syphilis positive\") <i>(Should Conduct syphilis counselling and further testing 3)</i><br/>\n                              \n                                \n                              \n                            </td>\n                          </tr>\n                        \n                      </table>\n                    \n                  </td>\n                </tr>\n              \n            </table>\n          </td>\n        </tr>\n        \n    </table>\n</div>"
+  },
+  "url": "http://fhir.org/guides/who/anc-cds/PlanDefinition/ANCDT21",
+  "identifier": [
+    {
+      "use": "official",
+      "value": "ANC.DT.21"
+    }
+  ],
+  "version": "0.3.0",
+  "name": "ANCDT21",
+  "title": "ANC.DT.21 Syphilis diagnosis",
+  "type": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type",
+        "code": "eca-rule"
+      }
+    ]
+  },
+  "status": "active",
+  "experimental": false,
+  "date": "2021-06-11T23:25:04-06:00",
+  "publisher": "World Health Organization (WHO)",
+  "contact": [
+    {
+      "telecom": [
+        {
+          "system": "url",
+          "value": "https://www.who.int"
+        }
+      ]
+    }
+  ],
+  "description": "If the woman tests positive for syphilis, provide counselling and treatment as needed",
+  "useContext": [
+    {
+      "code": {
+        "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+        "code": "task",
+        "display": "Workflow Task"
+      },
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/activity-codes",
+            "code": "ANC.B10.4.",
+            "display": "Diagnosis and treatment"
+          }
+        ]
+      }
+    }
+  ],
+  "jurisdiction": [
+    {
+      "coding": [
+        {
+          "system": "http://unstats.un.org/unsd/methods/m49/m49.htm",
+          "code": "001"
+        }
+      ]
+    }
+  ],
+  "library": [
+    "http://fhir.org/guides/who/anc-cds/Library/ANCDT21"
+  ],
+  "action": [
+    {
+      "title": "ANC.DT.21 Syphilis diagnosis",
+      "trigger": [
+        {
+          "type": "named-event",
+          "name": "ANC.B10.4. Diagnosis and treatment"
+        }
+      ],
+      "action": [
+        {
+          "id": "1",
+          "title": "Conduct syphilis counselling and further testing",
+          "description": "Conduct syphilis counselling and further testing",
+          "textEquivalent": "Procedure: Provide first dose of treatment and refer for additional testing\n– If primary or secondary stage of syphilis, give single dose of benzathine penicillin 2,400,000 IU\n– If late or unknown stage of syphilis, give one dose of benzathine penicillin 2,400,000 IU weekly for 3 consecutive weeks\n– Advise on treating partner\n– Encourage HIV testing and counselling\n– Reinforce use of condoms\n– Proceed to further testing with an RPR test\n\"In high-prevalence settings, provider-initiated testing and counselling (PITC) for HIV should be considered a routine component of the package of care for pregnant women in all antenatal care settings. In low-prevalence settings, PITC can be considered for pregnant women in antenatal care settings as a key component of the effort to eliminate mother-to-child transmission of HIV, and to integrate HIV testing with syphilis, viral or other key tests, as relevant to the setting, and to strengthen the underlying maternal and child health systems\" (2)",
+          "documentation": [
+            {
+              "type": "citation",
+              "label": "WHO ANC recommendations (2016): B.1.7. Human immunodeficiency virus (HIV) and syphilis (3)"
+            }
+          ],
+          "condition": [
+            {
+              "kind": "applicability",
+              "expression": {
+                "description": "(\"Population prevalence of syphilis in pregnant women\" ≥ 5%)\n  AND (\"Syphilis test type\" = \"Rapid syphilis test (RST)\")\n  AND (Syphilis test result\" = \"Syphilis positive\")",
+                "language": "text/cql-identifier",
+                "expression": "Should Conduct syphilis counselling and further testing"
+              }
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "title": "Conduct syphilis counselling and further testing",
+          "description": "Conduct syphilis counselling and further testing 2",
+          "textEquivalent": "Provide treatment according to the clinical phase of syphilis:\n– If primary or secondary stage of syphilis, give single dose of benzathine penicillin 2,400,000 IU\n– If late or unknown stage of syphilis, give one dose of benzathine penicillin 2,400,000 IU weekly for 3 consecutive weeks\n– Advise on treating partner\n– Encourage HIV testing and counselling\n– Reinforce use of condoms\n– Proceed to further testing with an RPR test\n\"In high-prevalence settings, provider-initiated testing and counselling (PITC) for HIV should be considered a routine component of the package of care for pregnant women in all antenatal care settings. In low-prevalence settings, PITC can be considered for pregnant women in antenatal care settings as a key component of the effort to eliminate mother-to-child transmission of HIV, and to integrate HIV testing with syphilis, viral or other key tests, as relevant to the setting, and to strengthen the underlying maternal and child health systems\" (2)",
+          "documentation": [
+            {
+              "type": "citation",
+              "label": "WHO ANC recommendations (2016): B.1.7. Human immunodeficiency virus (HIV) and syphilis (3)"
+            }
+          ],
+          "condition": [
+            {
+              "kind": "applicability",
+              "expression": {
+                "description": "(\"Population prevalence of syphilis in pregnant women\" ≥ 5%)\n  AND (\"Syphilis test type\" = \"Rapid plasma reagin (RPR) test\")\n  AND (Syphilis test result\" = \"Syphilis positive\")",
+                "language": "text/cql-identifier",
+                "expression": "Should Conduct syphilis counselling and further testing 2"
+              }
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "title": "Conduct syphilis counselling and further testing",
+          "description": "Conduct syphilis counselling and further testing 3",
+          "textEquivalent": "Procedure:\n– If primary or secondary stage of syphilis, give single dose of benzathine penicillin 2,400,000 IU\n– If late or unknown stage of syphilis, give one dose of benzathine penicillin 2,400,000 IU weekly for 3 consecutive weeks\n– Advise on treating partner\n– Encourage HIV testing and counselling\n– Reinforce use of condoms\n\"In high-prevalence settings, provider-initiated testing and counselling (PITC) for HIV should be considered a routine component of the package of care for pregnant women in all antenatal care settings. In low-prevalence settings, PITC can be considered for pregnant women in antenatal care settings as a key component of the effort to eliminate mother-to-child transmission of HIV, and to integrate HIV testing with syphilis, viral or other key tests, as relevant to the setting, and to strengthen the underlying maternal and child health systems\" (2)",
+          "documentation": [
+            {
+              "type": "citation",
+              "label": "WHO ANC recommendations (2016): B.1.7. Human immunodeficiency virus (HIV) and syphilis (3)"
+            }
+          ],
+          "condition": [
+            {
+              "kind": "applicability",
+              "expression": {
+                "description": "(\"Population prevalence of syphilis in pregnant women\" < 5%)\n  AND (\"Syphilis test result\" = \"Syphilis positive\")",
+                "language": "text/cql-identifier",
+                "expression": "Should Conduct syphilis counselling and further testing 3"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

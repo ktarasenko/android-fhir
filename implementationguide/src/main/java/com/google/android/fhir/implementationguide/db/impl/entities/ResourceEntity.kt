@@ -21,13 +21,12 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.io.File
-import java.util.UUID
 import org.hl7.fhir.r4.model.ResourceType
 
 @Entity(
   indices =
     [
-      Index(value = ["resourceUuid"], unique = true),
+      Index(value = ["implementationGuideId"], unique = false),
       Index(value = ["resourceType", "resourceId", "implementationGuideId"], unique = true)
     ],
   foreignKeys =
@@ -39,13 +38,13 @@ import org.hl7.fhir.r4.model.ResourceType
       )
     ]
 )
-internal data class ResourceEntity(
+data class ResourceEntity(
   @PrimaryKey(autoGenerate = true) val id: Long,
-  val resourceUuid: UUID,
   val resourceType: ResourceType,
   val resourceId: String,
   val url: String?,
-  val version: String,
+  val name: String?,
+  val version: String?,
   val fileUri: File,
   val implementationGuideId: Long,
 )
