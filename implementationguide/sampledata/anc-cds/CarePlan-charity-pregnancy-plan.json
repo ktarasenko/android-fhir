@@ -1,0 +1,354 @@
+{
+  "resourceType": "CarePlan",
+  "id": "charity-pregnancy-plan",
+  "meta": {
+    "profile": [
+      "http://fhir.org/guides/who/anc-cds/StructureDefinition/anc-careplan",
+      "http://fhir.org/guides/who/core/StructureDefinition/who-careplan"
+    ]
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: CarePlan</b></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource CarePlan \"charity-pregnancy-plan\" </p><p style=\"margin-bottom: 0px\">Profiles: <a href=\"StructureDefinition-anc-careplan.html\">ANC CarePlan</a>, <a href=\"StructureDefinition-who-careplan.html\">WHO CarePlan</a></p></div><p><b>instantiatesCanonical</b>: <a href=\"PlanDefinition-ANCS01.html\">ANC.S.01 Contact schedule</a></p><p><b>status</b>: active</p><p><b>intent</b>: plan</p><p><b>subject</b>: <a href=\"Patient-charity-otala-1.html\">Patient/charity-otala-1: Charity Otala</a> \" OTALA\"</p><p><b>period</b>: 2021-01-01 --&gt; 2021-10-08</p><p><b>careTeam</b>: <a href=\"CareTeam-anc-team.html\">CareTeam/anc-team</a></p><p><b>addresses</b>: <a href=\"Condition-charity-otala-1-pregnancy.html\">Condition/charity-otala-1-pregnancy: pregnancy</a></p><p><b>goal</b>: <a href=\"Goal-charity-otala-1-pregnancy-goal.html\">Goal/charity-otala-1-pregnancy-goal</a></p><blockquote><p><b>activity</b></p><p><b>outcomeReference</b>: <a href=\"Encounter/charity-otala-1-first-contact\">Encounter/charity-otala-1-first-contact</a></p><h3>Details</h3><table class=\"grid\"><tr><td>-</td><td><b>Kind</b></td><td><b>InstantiatesCanonical</b></td><td><b>Code</b></td><td><b>Status</b></td><td><b>Performer</b></td><td><b>Description</b></td></tr><tr><td>*</td><td>ServiceRequest</td><td><a href=\"http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact\">http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact</a></td><td>Antenatal care contact <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-anc-custom-codes.html\">Extended Codes CodeSystem</a>#Reason for coming to facility-First antenatal care contact \"First antenatal care contact\"; <a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#424441002 \"Prenatal initial visit (regime/therapy)\")</span></td><td>in-progress</td><td><a href=\"Practitioner-jane.html\">Practitioner/jane: Jane Nurse</a> \" NURSE\"</td><td>First antenatal care contact</td></tr></table></blockquote><blockquote><p><b>activity</b></p><p><b>reference</b>: </p><h3>Details</h3><table class=\"grid\"><tr><td>-</td><td><b>Kind</b></td><td><b>InstantiatesCanonical</b></td><td><b>Code</b></td><td><b>Status</b></td><td><b>Scheduled[x]</b></td><td><b>Performer</b></td><td><b>Description</b></td></tr><tr><td>*</td><td>ServiceRequest</td><td><a href=\"http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact\">http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact</a></td><td>Antenatal care contact <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-anc-custom-codes.html\">Extended Codes CodeSystem</a>#Reason for coming to facility-Scheduled antenatal care contact \"Scheduled antenatal care contact\"; <a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#424619006 \"Prenatal visit (regime/therapy)\")</span></td><td>scheduled</td><td>2019-05-21 --&gt; (ongoing)</td><td><a href=\"Practitioner-jane.html\">Practitioner/jane: Jane Nurse</a> \" NURSE\"</td><td>Second contact to occur at 20 weeks of gestational age</td></tr></table></blockquote><blockquote><p><b>activity</b></p><h3>Details</h3><table class=\"grid\"><tr><td>-</td><td><b>Kind</b></td><td><b>InstantiatesCanonical</b></td><td><b>Code</b></td><td><b>Status</b></td><td><b>Scheduled[x]</b></td><td><b>Performer</b></td><td><b>Description</b></td></tr><tr><td>*</td><td>ServiceRequest</td><td><a href=\"http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact\">http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact</a></td><td>Antenatal care contact <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-anc-custom-codes.html\">Extended Codes CodeSystem</a>#Reason for coming to facility-Scheduled antenatal care contact \"Scheduled antenatal care contact\"; <a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#424619006 \"Prenatal visit (regime/therapy)\")</span></td><td>not-started</td><td>2021-07-02 --&gt; (ongoing)</td><td><a href=\"Practitioner-jane.html\">Practitioner/jane: Jane Nurse</a> \" NURSE\"</td><td>Third contact to occur at 26 weeks of gestational age</td></tr></table></blockquote><blockquote><p><b>activity</b></p><h3>Details</h3><table class=\"grid\"><tr><td>-</td><td><b>Kind</b></td><td><b>InstantiatesCanonical</b></td><td><b>Code</b></td><td><b>Status</b></td><td><b>Scheduled[x]</b></td><td><b>Performer</b></td><td><b>Description</b></td></tr><tr><td>*</td><td>ServiceRequest</td><td><a href=\"http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact\">http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact</a></td><td>Antenatal care contact <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-anc-custom-codes.html\">Extended Codes CodeSystem</a>#Reason for coming to facility-Scheduled antenatal care contact \"Scheduled antenatal care contact\"; <a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#424619006 \"Prenatal visit (regime/therapy)\")</span></td><td>not-started</td><td>2021-07-30 --&gt; (ongoing)</td><td><a href=\"Practitioner-jane.html\">Practitioner/jane: Jane Nurse</a> \" NURSE\"</td><td>Fourth contact to occur at 30 weeks of gestational age</td></tr></table></blockquote><blockquote><p><b>activity</b></p><h3>Details</h3><table class=\"grid\"><tr><td>-</td><td><b>Kind</b></td><td><b>InstantiatesCanonical</b></td><td><b>Code</b></td><td><b>Status</b></td><td><b>Scheduled[x]</b></td><td><b>Performer</b></td><td><b>Description</b></td></tr><tr><td>*</td><td>ServiceRequest</td><td><a href=\"http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact\">http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact</a></td><td>Antenatal care contact <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-anc-custom-codes.html\">Extended Codes CodeSystem</a>#Reason for coming to facility-Scheduled antenatal care contact \"Scheduled antenatal care contact\"; <a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#424619006 \"Prenatal visit (regime/therapy)\")</span></td><td>not-started</td><td>2021-08-27 --&gt; (ongoing)</td><td><a href=\"Practitioner-jane.html\">Practitioner/jane: Jane Nurse</a> \" NURSE\"</td><td>Fifth contact to occur at 34 weeks of gestational age</td></tr></table></blockquote><blockquote><p><b>activity</b></p><h3>Details</h3><table class=\"grid\"><tr><td>-</td><td><b>Kind</b></td><td><b>InstantiatesCanonical</b></td><td><b>Code</b></td><td><b>Status</b></td><td><b>Scheduled[x]</b></td><td><b>Performer</b></td><td><b>Description</b></td></tr><tr><td>*</td><td>ServiceRequest</td><td><a href=\"http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact\">http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact</a></td><td>Antenatal care contact <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-anc-custom-codes.html\">Extended Codes CodeSystem</a>#Reason for coming to facility-Scheduled antenatal care contact \"Scheduled antenatal care contact\"; <a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#424619006 \"Prenatal visit (regime/therapy)\")</span></td><td>not-started</td><td>2021-09-10 --&gt; (ongoing)</td><td><a href=\"Practitioner-jane.html\">Practitioner/jane: Jane Nurse</a> \" NURSE\"</td><td>Sixth contact to occur at 36 weeks of gestational age</td></tr></table></blockquote><blockquote><p><b>activity</b></p><h3>Details</h3><table class=\"grid\"><tr><td>-</td><td><b>Kind</b></td><td><b>InstantiatesCanonical</b></td><td><b>Code</b></td><td><b>Status</b></td><td><b>Scheduled[x]</b></td><td><b>Performer</b></td><td><b>Description</b></td></tr><tr><td>*</td><td>ServiceRequest</td><td><a href=\"http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact\">http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact</a></td><td>Antenatal care contact <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-anc-custom-codes.html\">Extended Codes CodeSystem</a>#Reason for coming to facility-Scheduled antenatal care contact \"Scheduled antenatal care contact\"; <a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#424619006 \"Prenatal visit (regime/therapy)\")</span></td><td>not-started</td><td>2021-09-24 --&gt; (ongoing)</td><td><a href=\"Practitioner-jane.html\">Practitioner/jane: Jane Nurse</a> \" NURSE\"</td><td>Seventh contact to occur at 38 weeks of gestational age</td></tr></table></blockquote><blockquote><p><b>activity</b></p><h3>Details</h3><table class=\"grid\"><tr><td>-</td><td><b>Kind</b></td><td><b>InstantiatesCanonical</b></td><td><b>Code</b></td><td><b>Status</b></td><td><b>Scheduled[x]</b></td><td><b>Performer</b></td><td><b>Description</b></td></tr><tr><td>*</td><td>ServiceRequest</td><td><a href=\"http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact\">http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact</a></td><td>Antenatal care contact <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-anc-custom-codes.html\">Extended Codes CodeSystem</a>#Reason for coming to facility-Scheduled antenatal care contact \"Scheduled antenatal care contact\"; <a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#424619006 \"Prenatal visit (regime/therapy)\")</span></td><td>not-started</td><td>2021-10-08 --&gt; (ongoing)</td><td><a href=\"Practitioner-jane.html\">Practitioner/jane: Jane Nurse</a> \" NURSE\"</td><td>Eighth contact to occur at 40 weeks of gestational age</td></tr></table></blockquote><blockquote><p><b>activity</b></p><h3>Details</h3><table class=\"grid\"><tr><td>-</td><td><b>Kind</b></td><td><b>Code</b></td><td><b>Status</b></td><td><b>Scheduled[x]</b></td><td><b>Performer</b></td><td><b>Description</b></td></tr><tr><td>*</td><td>ServiceRequest</td><td>Delivery <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#177184002 \"Normal Delivery (procedure)\")</span></td><td>not-started</td><td>2021-10-22 --&gt; 2021-10-22</td><td><a href=\"Practitioner-jane.html\">Practitioner/jane: Jane Nurse</a> \" NURSE\"</td><td>Delivery</td></tr></table></blockquote></div>"
+  },
+  "extension": [
+    {
+      "url": "http://fhir.org/guides/who/anc-cds/StructureDefinition/careplan-episodeOfCare",
+      "valueReference": {
+        "reference": "EpisodeOfCare/charity-pregnancy-episode"
+      }
+    }
+  ],
+  "instantiatesCanonical": [
+    "http://fhir.org/guides/who/anc-cds/PlanDefinition/ANCS01"
+  ],
+  "status": "active",
+  "intent": "plan",
+  "subject": {
+    "reference": "Patient/charity-otala-1",
+    "display": "Charity Otala"
+  },
+  "period": {
+    "start": "2021-01-01",
+    "end": "2021-10-08"
+  },
+  "careTeam": [
+    {
+      "reference": "CareTeam/anc-team"
+    }
+  ],
+  "addresses": [
+    {
+      "reference": "Condition/charity-otala-1-pregnancy",
+      "display": "pregnancy"
+    }
+  ],
+  "goal": [
+    {
+      "reference": "Goal/charity-otala-1-pregnancy-goal"
+    }
+  ],
+  "activity": [
+    {
+      "outcomeReference": [
+        {
+          "reference": "Encounter/charity-otala-1-first-contact"
+        }
+      ],
+      "detail": {
+        "kind": "ServiceRequest",
+        "instantiatesCanonical": [
+          "http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact"
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/anc-custom-codes",
+              "code": "Reason for coming to facility-First antenatal care contact",
+              "display": "First antenatal care contact"
+            },
+            {
+              "system": "http://snomed.info/sct",
+              "code": "424441002",
+              "display": "Prenatal initial visit (regime/therapy)"
+            }
+          ],
+          "text": "Antenatal care contact"
+        },
+        "status": "in-progress",
+        "performer": [
+          {
+            "reference": "Practitioner/jane",
+            "display": "Jane Nurse"
+          }
+        ],
+        "description": "First antenatal care contact"
+      }
+    },
+    {
+      "detail": {
+        "kind": "ServiceRequest",
+        "instantiatesCanonical": [
+          "http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact"
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/anc-custom-codes",
+              "code": "Reason for coming to facility-Scheduled antenatal care contact",
+              "display": "Scheduled antenatal care contact"
+            },
+            {
+              "system": "http://snomed.info/sct",
+              "code": "424619006",
+              "display": "Prenatal visit (regime/therapy)"
+            }
+          ],
+          "text": "Antenatal care contact"
+        },
+        "status": "scheduled",
+        "scheduledPeriod": {
+          "start": "2019-05-21"
+        },
+        "performer": [
+          {
+            "reference": "Practitioner/jane",
+            "display": "Jane Nurse"
+          }
+        ],
+        "description": "Second contact to occur at 20 weeks of gestational age"
+      }
+    },
+    {
+      "detail": {
+        "kind": "ServiceRequest",
+        "instantiatesCanonical": [
+          "http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact"
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/anc-custom-codes",
+              "code": "Reason for coming to facility-Scheduled antenatal care contact",
+              "display": "Scheduled antenatal care contact"
+            },
+            {
+              "system": "http://snomed.info/sct",
+              "code": "424619006",
+              "display": "Prenatal visit (regime/therapy)"
+            }
+          ],
+          "text": "Antenatal care contact"
+        },
+        "status": "not-started",
+        "scheduledPeriod": {
+          "start": "2021-07-02"
+        },
+        "performer": [
+          {
+            "reference": "Practitioner/jane",
+            "display": "Jane Nurse"
+          }
+        ],
+        "description": "Third contact to occur at 26 weeks of gestational age"
+      }
+    },
+    {
+      "detail": {
+        "kind": "ServiceRequest",
+        "instantiatesCanonical": [
+          "http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact"
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/anc-custom-codes",
+              "code": "Reason for coming to facility-Scheduled antenatal care contact",
+              "display": "Scheduled antenatal care contact"
+            },
+            {
+              "system": "http://snomed.info/sct",
+              "code": "424619006",
+              "display": "Prenatal visit (regime/therapy)"
+            }
+          ],
+          "text": "Antenatal care contact"
+        },
+        "status": "not-started",
+        "scheduledPeriod": {
+          "start": "2021-07-30"
+        },
+        "performer": [
+          {
+            "reference": "Practitioner/jane",
+            "display": "Jane Nurse"
+          }
+        ],
+        "description": "Fourth contact to occur at 30 weeks of gestational age"
+      }
+    },
+    {
+      "detail": {
+        "kind": "ServiceRequest",
+        "instantiatesCanonical": [
+          "http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact"
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/anc-custom-codes",
+              "code": "Reason for coming to facility-Scheduled antenatal care contact",
+              "display": "Scheduled antenatal care contact"
+            },
+            {
+              "system": "http://snomed.info/sct",
+              "code": "424619006",
+              "display": "Prenatal visit (regime/therapy)"
+            }
+          ],
+          "text": "Antenatal care contact"
+        },
+        "status": "not-started",
+        "scheduledPeriod": {
+          "start": "2021-08-27"
+        },
+        "performer": [
+          {
+            "reference": "Practitioner/jane",
+            "display": "Jane Nurse"
+          }
+        ],
+        "description": "Fifth contact to occur at 34 weeks of gestational age"
+      }
+    },
+    {
+      "detail": {
+        "kind": "ServiceRequest",
+        "instantiatesCanonical": [
+          "http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact"
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/anc-custom-codes",
+              "code": "Reason for coming to facility-Scheduled antenatal care contact",
+              "display": "Scheduled antenatal care contact"
+            },
+            {
+              "system": "http://snomed.info/sct",
+              "code": "424619006",
+              "display": "Prenatal visit (regime/therapy)"
+            }
+          ],
+          "text": "Antenatal care contact"
+        },
+        "status": "not-started",
+        "scheduledPeriod": {
+          "start": "2021-09-10"
+        },
+        "performer": [
+          {
+            "reference": "Practitioner/jane",
+            "display": "Jane Nurse"
+          }
+        ],
+        "description": "Sixth contact to occur at 36 weeks of gestational age"
+      }
+    },
+    {
+      "detail": {
+        "kind": "ServiceRequest",
+        "instantiatesCanonical": [
+          "http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact"
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/anc-custom-codes",
+              "code": "Reason for coming to facility-Scheduled antenatal care contact",
+              "display": "Scheduled antenatal care contact"
+            },
+            {
+              "system": "http://snomed.info/sct",
+              "code": "424619006",
+              "display": "Prenatal visit (regime/therapy)"
+            }
+          ],
+          "text": "Antenatal care contact"
+        },
+        "status": "not-started",
+        "scheduledPeriod": {
+          "start": "2021-09-24"
+        },
+        "performer": [
+          {
+            "reference": "Practitioner/jane",
+            "display": "Jane Nurse"
+          }
+        ],
+        "description": "Seventh contact to occur at 38 weeks of gestational age"
+      }
+    },
+    {
+      "detail": {
+        "kind": "ServiceRequest",
+        "instantiatesCanonical": [
+          "http://fhir.org/guides/who/anc-cds/PlanDefinition/anc-contact"
+        ],
+        "code": {
+          "coding": [
+            {
+              "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/anc-custom-codes",
+              "code": "Reason for coming to facility-Scheduled antenatal care contact",
+              "display": "Scheduled antenatal care contact"
+            },
+            {
+              "system": "http://snomed.info/sct",
+              "code": "424619006",
+              "display": "Prenatal visit (regime/therapy)"
+            }
+          ],
+          "text": "Antenatal care contact"
+        },
+        "status": "not-started",
+        "scheduledPeriod": {
+          "start": "2021-10-08"
+        },
+        "performer": [
+          {
+            "reference": "Practitioner/jane",
+            "display": "Jane Nurse"
+          }
+        ],
+        "description": "Eighth contact to occur at 40 weeks of gestational age"
+      }
+    },
+    {
+      "detail": {
+        "kind": "ServiceRequest",
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "177184002",
+              "display": "Normal Delivery (procedure)"
+            }
+          ],
+          "text": "Delivery"
+        },
+        "status": "not-started",
+        "scheduledPeriod": {
+          "start": "2021-10-22",
+          "end": "2021-10-22"
+        },
+        "performer": [
+          {
+            "reference": "Practitioner/jane",
+            "display": "Jane Nurse"
+          }
+        ],
+        "description": "Delivery"
+      }
+    }
+  ]
+}

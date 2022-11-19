@@ -1,0 +1,42 @@
+{
+  "resourceType": "ValueSet",
+  "id": "anc-activity-codes",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><ul><li>Include all codes defined in <a href=\"CodeSystem-anc-activity-codes.html\"><code>http://fhir.org/guides/who/anc-cds/CodeSystem/anc-activity-codes</code></a></li></ul></div>"
+  },
+  "url": "http://fhir.org/guides/who/anc-cds/ValueSet/anc-activity-codes",
+  "version": "0.3.0",
+  "name": "ANCActivityCodes",
+  "title": "ANC Activity Codes",
+  "status": "active",
+  "date": "2022-08-22T21:51:39+00:00",
+  "publisher": "World Health Organization (WHO)",
+  "contact": [
+    {
+      "telecom": [
+        {
+          "system": "url",
+          "value": "https://www.who.int"
+        }
+      ]
+    }
+  ],
+  "jurisdiction": [
+    {
+      "coding": [
+        {
+          "system": "http://unstats.un.org/unsd/methods/m49/m49.htm",
+          "code": "001"
+        }
+      ]
+    }
+  ],
+  "compose": {
+    "include": [
+      {
+        "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/anc-activity-codes"
+      }
+    ]
+  }
+}

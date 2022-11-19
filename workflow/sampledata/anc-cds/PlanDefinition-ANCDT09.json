@@ -1,0 +1,107 @@
+{
+  "resourceType": "PlanDefinition",
+  "id": "ANCDT09",
+  "text": {
+    "status": "extensions",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">\n    <table class=\"grid dict\">\n        \n        <tr>\n            <th scope=\"row\"><b>Id: </b></th>\n            <td style=\"padding-left: 4px;\">ANCDT09</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Url: </b></th>\n            <td style=\"padding-left: 4px;\">http://fhir.org/guides/who/anc-cds/PlanDefinition/ANCDT09</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Version: </b></th>\n            <td style=\"padding-left: 4px;\">0.3.0</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Identifier: </b></th>\n            <td style=\"padding-left: 4px;\">\n                \n                \n                <p style=\"margin-bottom: 5px;\">\n                    <b>value: </b> <span>ANC.DT.09</span>\n                </p>\n                \n            </td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Name: </b></th>\n            <td style=\"padding-left: 4px;\">ANCDT09</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Title: </b></th>\n            <td style=\"padding-left: 4px;\">ANC.DT.09 Heptatitis B testing</td>\n        </tr>\n        \n        \n        \n        <tr>\n            <th scope=\"row\"><b>Status: </b></th>\n            <td style=\"padding-left: 4px;\">active</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Experimental: </b></th>\n            <td style=\"padding-left: 4px;\">false</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Type: </b></th>\n            <td style=\"padding-left: 4px;\">\n                \n                    \n                        \n                        <p style=\"margin-bottom: 5px;\">\n                            <b>system: </b> <span>http://terminology.hl7.org/CodeSystem/plan-definition-type</span>\n                        </p>\n                        \n                        \n                        <p style=\"margin-bottom: 5px;\">\n                            <b>code: </b> <span>eca-rule</span>\n                        </p>\n                        \n                        \n                    \n                \n                \n            </td>\n        </tr>\n        \n        \n        \n        <tr>\n            <th scope=\"row\"><b>Date: </b></th>\n            <td style=\"padding-left: 4px;\">2021-06-11T23:02:59-06:00</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Publisher: </b></th>\n            <td style=\"padding-left: 4px;\">World Health Organization (WHO)</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Description: </b></th>\n            <td style=\"padding-left: 4px;\">Depending on the population prevalence, and woman's medical history, conduct hepatitis B testing</td>\n        </tr>\n        \n        \n        \n        \n        <tr>\n            <th scope=\"row\"><b>Use Context: </b></th>\n            <td style=\"padding-left: 4px;\">\n                <table class=\"grid-dict\">\n                    <tr><th><b>code</b></th><th><b>value</b></th><th><b>display</b></th></tr>\n                    \n                      <tr>\n                        <td>task</td>\n                        <td>ANC.B9.</td>\n                        <td>Conduct laboratory tests and imaging</td>\n                      </tr>\n                    \n                </table>\n            </td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Jurisdiction: </b></th>\n            <td style=\"padding-left: 4px;\">001</td>\n        </tr>\n        \n        \n        \n        \n        \n        \n        \n        \n\n        \n        <tr>\n          <th scope=\"row\"><b>Libraries: </b></th>\n          <td style=\"padding-left: 4px;\">\n            <table class=\"grid-dict\">\n              \n                <tr><td>http://fhir.org/guides/who/anc-cds/Library/ANCDT09</td></tr>\n              \n            </table>\n          </td>\n        </tr>\n        \n\n        \n        <tr>\n          <th scope=\"row\"><b>Actions: </b></th>\n          <td style=\"padding-left: 4px;\">\n            <table class=\"grid-dict\">\n              \n                <tr>\n                  <td>\n                    <b> ANC.DT.09 Heptatitis B testing:</b> <br/>\n                    <b>When:</b> <i>named-event:</i> ANC.B9. Conduct laboratory tests and imaging<br/>\n                    \n                    \n                      <b>Then:</b>\n                      <table class=\"grid-dict\">\n                        \n                          <tr>\n                            <td>\n                              Hepatitis B testing is recommended for at-risk women.\nHBsAg laboratory-based immunoassay is the preferred method for testing for Hep B infection in pregnancy; if immunoassay is not available, HBsAg rapid diagnostic test (RDT) is recommended over dried blood spot (DBS) HBsAg testing.<br/>\n                              \n                              <b>If:</b> <i>applicability:</i> (((\"Population prevalence of hepatitis B\" ≥ 2%)\n  OR (\"HIV status\" = \"HIV positive\"))\n  OR (Current alcohol and/or other substance use\" = \"Injectable drugs\"))\n  OR (\"Occupation\" = \"Employment that puts woman at increased risk for HIV (e.g. sex worker)\") <i>(Should Conduct hepatitis B test)</i><br/>\n                              \n                                \n                              \n                            </td>\n                          </tr>\n                        \n                      </table>\n                    \n                  </td>\n                </tr>\n              \n            </table>\n          </td>\n        </tr>\n        \n    </table>\n</div>"
+  },
+  "url": "http://fhir.org/guides/who/anc-cds/PlanDefinition/ANCDT09",
+  "identifier": [
+    {
+      "use": "official",
+      "value": "ANC.DT.09"
+    }
+  ],
+  "version": "0.3.0",
+  "name": "ANCDT09",
+  "title": "ANC.DT.09 Heptatitis B testing",
+  "type": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type",
+        "code": "eca-rule"
+      }
+    ]
+  },
+  "status": "active",
+  "experimental": false,
+  "date": "2021-06-11T23:02:59-06:00",
+  "publisher": "World Health Organization (WHO)",
+  "contact": [
+    {
+      "telecom": [
+        {
+          "system": "url",
+          "value": "https://www.who.int"
+        }
+      ]
+    }
+  ],
+  "description": "Depending on the population prevalence, and woman's medical history, conduct hepatitis B testing",
+  "useContext": [
+    {
+      "code": {
+        "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+        "code": "task",
+        "display": "Workflow Task"
+      },
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/activity-codes",
+            "code": "ANC.B9.",
+            "display": "Conduct laboratory tests and imaging"
+          }
+        ]
+      }
+    }
+  ],
+  "jurisdiction": [
+    {
+      "coding": [
+        {
+          "system": "http://unstats.un.org/unsd/methods/m49/m49.htm",
+          "code": "001"
+        }
+      ]
+    }
+  ],
+  "library": [
+    "http://fhir.org/guides/who/anc-cds/Library/ANCDT09"
+  ],
+  "action": [
+    {
+      "title": "ANC.DT.09 Heptatitis B testing",
+      "trigger": [
+        {
+          "type": "named-event",
+          "name": "ANC.B9. Conduct laboratory tests and imaging"
+        }
+      ],
+      "action": [
+        {
+          "id": "1",
+          "title": "Conduct hepatitis B test",
+          "description": "Conduct hepatitis B test",
+          "textEquivalent": "Hepatitis B testing is recommended for at-risk women.\nHBsAg laboratory-based immunoassay is the preferred method for testing for Hep B infection in pregnancy; if immunoassay is not available, HBsAg rapid diagnostic test (RDT) is recommended over dried blood spot (DBS) HBsAg testing.",
+          "documentation": [
+            {
+              "type": "citation",
+              "label": "Guidelines on hepatitis B and C testing (2017): Recommendation 2 (4)"
+            }
+          ],
+          "condition": [
+            {
+              "kind": "applicability",
+              "expression": {
+                "description": "(((\"Population prevalence of hepatitis B\" ≥ 2%)\n  OR (\"HIV status\" = \"HIV positive\"))\n  OR (Current alcohol and/or other substance use\" = \"Injectable drugs\"))\n  OR (\"Occupation\" = \"Employment that puts woman at increased risk for HIV (e.g. sex worker)\")",
+                "language": "text/cql-identifier",
+                "expression": "Should Conduct hepatitis B test"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

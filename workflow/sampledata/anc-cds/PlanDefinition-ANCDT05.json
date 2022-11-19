@@ -1,0 +1,129 @@
+{
+  "resourceType": "PlanDefinition",
+  "id": "ANCDT05",
+  "text": {
+    "status": "extensions",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">\n    <table class=\"grid dict\">\n        \n        <tr>\n            <th scope=\"row\"><b>Id: </b></th>\n            <td style=\"padding-left: 4px;\">ANCDT05</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Url: </b></th>\n            <td style=\"padding-left: 4px;\">http://fhir.org/guides/who/anc-cds/PlanDefinition/ANCDT05</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Version: </b></th>\n            <td style=\"padding-left: 4px;\">0.3.0</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Identifier: </b></th>\n            <td style=\"padding-left: 4px;\">\n                \n                \n                <p style=\"margin-bottom: 5px;\">\n                    <b>value: </b> <span>ANC.DT.05</span>\n                </p>\n                \n            </td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Name: </b></th>\n            <td style=\"padding-left: 4px;\">ANCDT05</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Title: </b></th>\n            <td style=\"padding-left: 4px;\">ANC.DT.05 Evaluating labour</td>\n        </tr>\n        \n        \n        \n        <tr>\n            <th scope=\"row\"><b>Status: </b></th>\n            <td style=\"padding-left: 4px;\">active</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Experimental: </b></th>\n            <td style=\"padding-left: 4px;\">false</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Type: </b></th>\n            <td style=\"padding-left: 4px;\">\n                \n                    \n                        \n                        <p style=\"margin-bottom: 5px;\">\n                            <b>system: </b> <span>http://terminology.hl7.org/CodeSystem/plan-definition-type</span>\n                        </p>\n                        \n                        \n                        <p style=\"margin-bottom: 5px;\">\n                            <b>code: </b> <span>eca-rule</span>\n                        </p>\n                        \n                        \n                    \n                \n                \n            </td>\n        </tr>\n        \n        \n        \n        <tr>\n            <th scope=\"row\"><b>Date: </b></th>\n            <td style=\"padding-left: 4px;\">2021-06-11T22:32:40-06:00</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Publisher: </b></th>\n            <td style=\"padding-left: 4px;\">World Health Organization (WHO)</td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Description: </b></th>\n            <td style=\"padding-left: 4px;\">During a cervical exam, if cervical dilation is greater than 2 cm evaluate the possibility of labour</td>\n        </tr>\n        \n        \n        \n        \n        <tr>\n            <th scope=\"row\"><b>Use Context: </b></th>\n            <td style=\"padding-left: 4px;\">\n                <table class=\"grid-dict\">\n                    <tr><th><b>code</b></th><th><b>value</b></th><th><b>display</b></th></tr>\n                    \n                      <tr>\n                        <td>task</td>\n                        <td>ANC.B8</td>\n                        <td>Conduct physical exam</td>\n                      </tr>\n                    \n                </table>\n            </td>\n        </tr>\n        \n        \n        <tr>\n            <th scope=\"row\"><b>Jurisdiction: </b></th>\n            <td style=\"padding-left: 4px;\">001</td>\n        </tr>\n        \n        \n        \n        \n        \n        \n        \n        \n\n        \n        <tr>\n          <th scope=\"row\"><b>Libraries: </b></th>\n          <td style=\"padding-left: 4px;\">\n            <table class=\"grid-dict\">\n              \n                <tr><td>http://fhir.org/guides/who/anc-cds/Library/ANCDT05</td></tr>\n              \n            </table>\n          </td>\n        </tr>\n        \n\n        \n        <tr>\n          <th scope=\"row\"><b>Actions: </b></th>\n          <td style=\"padding-left: 4px;\">\n            <table class=\"grid-dict\">\n              \n                <tr>\n                  <td>\n                    <b> ANC.DT.05 Evaluating labour:</b> <br/>\n                    <b>When:</b> <i>named-event:</i> ANC.B8 Conduct physical exam<br/>\n                    \n                    \n                      <b>Then:</b>\n                      <table class=\"grid-dict\">\n                        \n                          <tr>\n                            <td>\n                              Cervix is more than 2 cm dilated: check for other signs and symptoms of labour (if GA is 37 weeks or later)<br/>\n                              \n                              <b>If:</b> <i>applicability:</i> (\"Cervical dilation\" &gt; 2 cm)\n  AND (\"Gestational age\" &gt; 37 weeks) <i>(Should Evaluate labour &gt; 37 weeks)</i><br/>\n                              \n                                \n                              \n                            </td>\n                          </tr>\n                        \n                          <tr>\n                            <td>\n                              Cervix is more than 2 cm dilated: check for other signs and symptoms of pre-term labour and other related complications (if GA is less than 37 weeks)<br/>\n                              \n                              <b>If:</b> <i>applicability:</i> (\"Cervical dilation\" &gt; 2cm)\n  AND (\"Gestational age\" &lt; 37 weeks) <i>(Should Evaluate labour &lt; 37 week)</i><br/>\n                              \n                                \n                              \n                            </td>\n                          </tr>\n                        \n                      </table>\n                    \n                  </td>\n                </tr>\n              \n            </table>\n          </td>\n        </tr>\n        \n    </table>\n</div>"
+  },
+  "url": "http://fhir.org/guides/who/anc-cds/PlanDefinition/ANCDT05",
+  "identifier": [
+    {
+      "use": "official",
+      "value": "ANC.DT.05"
+    }
+  ],
+  "version": "0.3.0",
+  "name": "ANCDT05",
+  "title": "ANC.DT.05 Evaluating labour",
+  "type": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type",
+        "code": "eca-rule"
+      }
+    ]
+  },
+  "status": "active",
+  "experimental": false,
+  "date": "2021-06-11T22:32:40-06:00",
+  "publisher": "World Health Organization (WHO)",
+  "contact": [
+    {
+      "telecom": [
+        {
+          "system": "url",
+          "value": "https://www.who.int"
+        }
+      ]
+    }
+  ],
+  "description": "During a cervical exam, if cervical dilation is greater than 2 cm evaluate the possibility of labour",
+  "useContext": [
+    {
+      "code": {
+        "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+        "code": "task",
+        "display": "Workflow Task"
+      },
+      "valueCodeableConcept": {
+        "coding": [
+          {
+            "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/activity-codes",
+            "code": "ANC.B8",
+            "display": "Conduct physical exam"
+          }
+        ]
+      }
+    }
+  ],
+  "jurisdiction": [
+    {
+      "coding": [
+        {
+          "system": "http://unstats.un.org/unsd/methods/m49/m49.htm",
+          "code": "001"
+        }
+      ]
+    }
+  ],
+  "library": [
+    "http://fhir.org/guides/who/anc-cds/Library/ANCDT05"
+  ],
+  "action": [
+    {
+      "title": "ANC.DT.05 Evaluating labour",
+      "trigger": [
+        {
+          "type": "named-event",
+          "name": "ANC.B8 Conduct physical exam"
+        }
+      ],
+      "action": [
+        {
+          "id": "1",
+          "title": "Evaluate labour > 37 weeks",
+          "description": "Evaluate labour > 37 weeks",
+          "textEquivalent": "Cervix is more than 2 cm dilated: check for other signs and symptoms of labour (if GA is 37 weeks or later)",
+          "documentation": [
+            {
+              "type": "citation",
+              "label": "Pregnancy, childbirth, postpartum and newborn care guide (IMPAC) (2015) (1)"
+            }
+          ],
+          "condition": [
+            {
+              "kind": "applicability",
+              "expression": {
+                "description": "(\"Cervical dilation\" > 2 cm)\n  AND (\"Gestational age\" > 37 weeks)",
+                "language": "text/cql-identifier",
+                "expression": "Should Evaluate labour > 37 weeks"
+              }
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "title": "Evaluate labour < 37 week",
+          "description": "Evaluate labour < 37 week",
+          "textEquivalent": "Cervix is more than 2 cm dilated: check for other signs and symptoms of pre-term labour and other related complications (if GA is less than 37 weeks)",
+          "documentation": [
+            {
+              "type": "citation",
+              "label": "Pregnancy, childbirth, postpartum and newborn care guide (IMPAC) (2015) (1)"
+            }
+          ],
+          "condition": [
+            {
+              "kind": "applicability",
+              "expression": {
+                "description": "(\"Cervical dilation\" > 2cm)\n  AND (\"Gestational age\" < 37 weeks)",
+                "language": "text/cql-identifier",
+                "expression": "Should Evaluate labour < 37 week"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

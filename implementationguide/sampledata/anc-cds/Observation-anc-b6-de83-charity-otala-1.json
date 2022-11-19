@@ -1,0 +1,48 @@
+{
+  "resourceType": "Observation",
+  "id": "anc-b6-de83-charity-otala-1",
+  "meta": {
+    "profile": [
+      "http://fhir.org/guides/who/anc-cds/StructureDefinition/anc-b6-de83"
+    ]
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation \"anc-b6-de83-charity-otala-1\" </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-anc-b6-de83.html\">Existing chronic health conditions</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Existing chronic health conditions <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-anc-custom-codes.html\">Extended Codes CodeSystem</a>#ANC.B6.DE83)</span></p><p><b>subject</b>: <a href=\"Patient-charity-otala-1.html\">Patient/charity-otala-1</a> \" OTALA\"</p><p><b>encounter</b>: <a href=\"Encounter-anc-encounter-charity-otala-1.html\">Encounter/anc-encounter-charity-otala-1</a></p><p><b>performer</b>: <a href=\"PractitionerRole-jane.html\">PractitionerRole/jane</a></p><p><b>value</b>: Don't know if there are any chronic or past health conditions <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-anc-custom-codes.html\">Extended Codes CodeSystem</a>#ANC.B6.DE85; <a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#261665006 \"Unknown (qualifier)\")</span></p></div>"
+  },
+  "status": "final",
+  "code": {
+    "coding": [
+      {
+        "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/anc-custom-codes",
+        "code": "ANC.B6.DE83",
+        "display": "Existing chronic health conditions"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/charity-otala-1"
+  },
+  "encounter": {
+    "reference": "Encounter/anc-encounter-charity-otala-1"
+  },
+  "performer": [
+    {
+      "reference": "PractitionerRole/jane"
+    }
+  ],
+  "valueCodeableConcept": {
+    "coding": [
+      {
+        "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/anc-custom-codes",
+        "code": "ANC.B6.DE85",
+        "display": "Don't know if there are any chronic or past health conditions"
+      },
+      {
+        "system": "http://snomed.info/sct",
+        "code": "261665006",
+        "display": "Unknown (qualifier)"
+      }
+    ]
+  }
+}

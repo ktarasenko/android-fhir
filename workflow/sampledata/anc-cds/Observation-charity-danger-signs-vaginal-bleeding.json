@@ -1,0 +1,59 @@
+{
+  "resourceType": "Observation",
+  "id": "charity-danger-signs-vaginal-bleeding",
+  "meta": {
+    "profile": [
+      "http://fhir.org/guides/who/anc-cds/StructureDefinition/anc-b5-de4"
+    ]
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation \"charity-danger-signs-vaginal-bleeding\" </p><p style=\"margin-bottom: 0px\">Profile: <code>http://fhir.org/guides/who/anc-cds/StructureDefinition/anc-b5-de4</code></p></div><p><b>status</b>: final</p><p><b>category</b>: exam <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (observation-category#exam)</span></p><p><b>code</b>: Danger Signs <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (anc-custom-codes#Danger signs)</span></p><p><b>subject</b>: <a href=\"Patient-mom-second-contact.html\">Patient/mom-second-contact: Charity Everywoman</a> \" OTALA\"</p><p><b>encounter</b>: <a href=\"Encounter/encounter-charity-second-contact\">Encounter/encounter-charity-second-contact</a></p><p><b>effective</b>: 2019-06-06 03:30:00+0000</p><p><b>issued</b>: Jun 6, 2019, 3:30:00 PM</p><p><b>performer</b>: <a href=\"Practitioner-midwife-amina-second-contact.html\">Practitioner/midwife-amina-second-contact: Amina Midwife</a> \" MIDWIFE\"</p><p><b>value</b>: Bleeding from vagina (finding) <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (SNOMED CT#289530006)</span></p></div>"
+  },
+  "status": "final",
+  "category": [
+    {
+      "coding": [
+        {
+          "system": "http://hl7.org/fhir/observation-category",
+          "code": "exam"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://fhir.org/guides/who/anc-cds/anc-custom-codes",
+        "code": "Danger signs",
+        "display": "Danger Signs"
+      }
+    ],
+    "text": "Danger Signs"
+  },
+  "subject": {
+    "reference": "Patient/mom-second-contact",
+    "display": "Charity Everywoman"
+  },
+  "encounter": {
+    "reference": "Encounter/encounter-charity-second-contact"
+  },
+  "effectiveDateTime": "2019-06-06T15:30:00Z",
+  "issued": "2019-06-06T15:30:00Z",
+  "performer": [
+    {
+      "reference": "Practitioner/midwife-amina-second-contact",
+      "display": "Amina Midwife"
+    }
+  ],
+  "valueCodeableConcept": {
+    "coding": [
+      {
+        "system": "http://snomed.info/sct ",
+        "code": "289530006",
+        "display": "Bleeding from vagina (finding)"
+      }
+    ],
+    "text": "Bleeding from vagina (finding)"
+  }
+}

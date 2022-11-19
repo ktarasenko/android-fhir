@@ -1,0 +1,54 @@
+{
+  "resourceType": "Observation",
+  "id": "anc-b6-de160-charity-otala-1",
+  "meta": {
+    "profile": [
+      "http://fhir.org/guides/who/anc-cds/StructureDefinition/anc-b6-de160"
+    ]
+  },
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: Observation</b></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource Observation \"anc-b6-de160-charity-otala-1\" </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-anc-b6-de160.html\">Contraceptive use of male condoms</a></p></div><p><b>status</b>: final</p><p><b>code</b>: Contraceptive use of male condoms <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-anc-custom-codes.html\">Extended Codes CodeSystem</a>#ANC.B6.DE160; <a href=\"http://terminology.hl7.org/3.1.0/CodeSystem-icd10.html\">ICD-10</a>#Z30.8 \"Other contraceptive management\"; icd-11#QA21.6Y \"Other specified surveillance of contraceptive device\"; <a href=\"https://browser.ihtsdotools.org/\">SNOMED CT</a>#442450006 \"Male condom, device (physical object)\"; <a href=\"https://loinc.org/\">LOINC</a>#64733-9)</span></p><p><b>subject</b>: <a href=\"Patient-charity-otala-1.html\">Patient/charity-otala-1</a> \" OTALA\"</p><p><b>encounter</b>: <a href=\"Encounter-anc-encounter-charity-otala-1.html\">Encounter/anc-encounter-charity-otala-1</a></p><p><b>performer</b>: <a href=\"PractitionerRole-jane.html\">PractitionerRole/jane</a></p><p><b>value</b>: false</p></div>"
+  },
+  "status": "final",
+  "code": {
+    "coding": [
+      {
+        "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/anc-custom-codes",
+        "code": "ANC.B6.DE160",
+        "display": "Contraceptive use of male condoms"
+      },
+      {
+        "system": "http://hl7.org/fhir/sid/icd-10",
+        "code": "Z30.8",
+        "display": "Other contraceptive management"
+      },
+      {
+        "system": "http://hl7.org/fhir/sid/icd-11",
+        "code": "QA21.6Y",
+        "display": "Other specified surveillance of contraceptive device"
+      },
+      {
+        "system": "http://snomed.info/sct",
+        "code": "442450006",
+        "display": "Male condom, device (physical object)"
+      },
+      {
+        "system": "http://loinc.org",
+        "code": "64733-9"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/charity-otala-1"
+  },
+  "encounter": {
+    "reference": "Encounter/anc-encounter-charity-otala-1"
+  },
+  "performer": [
+    {
+      "reference": "PractitionerRole/jane"
+    }
+  ],
+  "valueBoolean": false
+}

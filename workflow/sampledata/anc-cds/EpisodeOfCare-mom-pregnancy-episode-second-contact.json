@@ -1,0 +1,49 @@
+{
+  "resourceType": "EpisodeOfCare",
+  "id": "mom-pregnancy-episode-second-contact",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: EpisodeOfCare</b></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource EpisodeOfCare \"mom-pregnancy-episode-second-contact\" </p></div><p><b>identifier</b>: id: 123</p><p><b>status</b>: active</p><p><b>type</b>: Home and Community Care <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/3.1.0/CodeSystem-episodeofcare-type.html\">Episode of care type</a>#hacc)</span></p><h3>Diagnoses</h3><table class=\"grid\"><tr><td>-</td><td><b>Condition</b></td><td><b>Role</b></td><td><b>Rank</b></td></tr><tr><td>*</td><td><a href=\"Condition-mom-pregnancy-second-contact.html\">Condition/mom-pregnancy-second-contact</a></td><td>Chief complaint <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/3.1.0/CodeSystem-diagnosis-role.html\">DiagnosisRole</a>#CC)</span></td><td>1</td></tr></table><p><b>patient</b>: <a href=\"Patient-mom-second-contact.html\">Patient/mom-second-contact</a> \" OTALA\"</p><p><b>period</b>: 2019-06-06 --&gt; (ongoing)</p></div>"
+  },
+  "identifier": [
+    {
+      "system": "http://example.org/sampleepisodeofcare-identifier",
+      "value": "123"
+    }
+  ],
+  "status": "active",
+  "type": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/episodeofcare-type",
+          "code": "hacc",
+          "display": "Home and Community Care"
+        }
+      ]
+    }
+  ],
+  "diagnosis": [
+    {
+      "condition": {
+        "reference": "Condition/mom-pregnancy-second-contact"
+      },
+      "role": {
+        "coding": [
+          {
+            "system": "http://terminology.hl7.org/CodeSystem/diagnosis-role",
+            "code": "CC",
+            "display": "Chief complaint"
+          }
+        ]
+      },
+      "rank": 1
+    }
+  ],
+  "patient": {
+    "reference": "Patient/mom-second-contact"
+  },
+  "period": {
+    "start": "2019-06-06"
+  }
+}

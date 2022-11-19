@@ -1,0 +1,42 @@
+{
+  "resourceType": "ValueSet",
+  "id": "anc-persona",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><ul><li>Include all codes defined in <a href=\"CodeSystem-anc-persona.html\"><code>http://fhir.org/guides/who/anc-cds/CodeSystem/anc-persona</code></a></li></ul></div>"
+  },
+  "url": "http://fhir.org/guides/who/anc-cds/ValueSet/anc-persona",
+  "version": "0.3.0",
+  "name": "ANCPersona",
+  "title": "ANC Persona",
+  "status": "active",
+  "date": "2022-08-22T21:51:39+00:00",
+  "publisher": "World Health Organization (WHO)",
+  "contact": [
+    {
+      "telecom": [
+        {
+          "system": "url",
+          "value": "https://www.who.int"
+        }
+      ]
+    }
+  ],
+  "jurisdiction": [
+    {
+      "coding": [
+        {
+          "system": "http://unstats.un.org/unsd/methods/m49/m49.htm",
+          "code": "001"
+        }
+      ]
+    }
+  ],
+  "compose": {
+    "include": [
+      {
+        "system": "http://fhir.org/guides/who/anc-cds/CodeSystem/anc-persona"
+      }
+    ]
+  }
+}

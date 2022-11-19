@@ -1,0 +1,20 @@
+{
+  "resourceType": "CarePlan",
+  "id": "charity-otala-1-transient-dt-01",
+  "text": {
+    "status": "generated",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><b>Generated Narrative: CarePlan</b></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Resource CarePlan \"charity-otala-1-transient-dt-01\" </p></div><p><b>instantiatesCanonical</b>: <a href=\"http://fhir.org/guides/who/anc-cds/PlanDefinition/DT01\">http://fhir.org/guides/who/anc-cds/PlanDefinition/DT01</a></p><p><b>status</b>: active</p><p><b>intent</b>: plan</p><p><b>subject</b>: <a href=\"Patient-charity-otala-1.html\">Patient/charity-otala-1: Charity Otala</a> \" OTALA\"</p></div>"
+  },
+  "instantiatesCanonical": [
+    "http://fhir.org/guides/who/anc-cds/PlanDefinition/DT01"
+  ],
+  "status": "active",
+  "intent": "plan",
+  "subject": {
+    "reference": "Patient/charity-otala-1",
+    "display": "Charity Otala"
+  },
+  "activity": [
+    null
+  ]
+}
