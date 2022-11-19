@@ -26,6 +26,8 @@ android {
     setForkEvery(100)
   }
 
+  sourceSets { getByName("test").apply { resources.setSrcDirs(listOf("sampledata")) } }
+
   buildTypes {
     getByName("release") {
       isMinifyEnabled = false
@@ -134,6 +136,11 @@ dependencies {
   testImplementation(Dependencies.xmlUnit)
   testImplementation(project(":testing"))
   testImplementation(project(":workflow-testing"))
+
+  // TODO: removeme
+  testImplementation(project(":implementationguide"))
+  testImplementation(Dependencies.Room.ktx)
+  testImplementation(Dependencies.Room.runtime)
 }
 
 configureDokka(Releases.Workflow.artifactId, Releases.Workflow.version)

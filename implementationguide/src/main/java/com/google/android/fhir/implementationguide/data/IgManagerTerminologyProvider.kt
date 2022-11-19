@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-package com.google.android.fhir.workflow
+package com.google.android.fhir.implementationguide.data
 
 import ca.uhn.fhir.context.FhirContext
-import com.google.android.fhir.FhirEngine
-import com.google.android.fhir.db.ResourceNotFoundException
-import com.google.android.fhir.search.search
+import com.google.android.fhir.implementationguide.IgContext
+import com.google.android.fhir.implementationguide.IgManager
 import kotlinx.coroutines.runBlocking
-import org.hl7.fhir.r4.model.CodeSystem
-import org.hl7.fhir.r4.model.Resource
 import org.hl7.fhir.r4.model.ResourceType
 import org.hl7.fhir.r4.model.ValueSet
 import org.opencds.cqf.cql.engine.exception.TerminologyProviderException
@@ -32,88 +29,56 @@ import org.opencds.cqf.cql.engine.terminology.TerminologyProvider
 import org.opencds.cqf.cql.engine.terminology.ValueSetInfo
 import org.opencds.cqf.cql.evaluator.engine.util.ValueSetUtil
 
-class FhirEngineTerminologyProvider(
+class IgManagerTerminologyProvider(
   private val fhirContext: FhirContext,
-  private val fhirEngine: FhirEngine
+  private val igContext: IgContext,
+  private val igManager: IgManager,
 ) : TerminologyProvider {
-
-  companion object {
-    const val URN_UUID = "urn:uuid:"
-    const val URN_OID = "urn:oid:"
-  }
 
   override fun `in`(code: Code, valueSet: ValueSetInfo): Boolean {
     try {
       return expand(valueSet).any { it.code == code.code && it.system == code.system }
     } catch (e: Exception) {
-      return false
-    }
-  }
-
-  override fun expand(valueSetInfo: ValueSetInfo): Iterable<Code> {
-    try {
-      val valueSet = resolveValueSet(valueSetInfo)
-      return ValueSetUtil.getCodesInExpansion(fhirContext, valueSet)
-        ?: ValueSetUtil.getCodesInCompose(fhirContext, valueSet)
-    } catch (e: Exception) {
-      return emptyList()
-    }
-  }
-
-  override fun lookup(code: Code, codeSystem: CodeSystemInfo): Code {
-    try {
-      val codeSystems = runBlocking {
-        fhirEngine.search<CodeSystem> {
-          filter(CodeSystem.CODE, { value = of(code.code) })
-          filter(CodeSystem.SYSTEM, { value = codeSystem.id })
-        }
-      }
-
-      val concept = codeSystems.first().concept.first { it.code == code.code }
-
-      return Code().apply {
-        this.code = code.code
-        display = concept.display
-        system = codeSystem.id
-      }
-    } catch (e: Exception) {
       throw TerminologyProviderException(
-        "Error performing lookup of Code: $code in CodeSystem: ${codeSystem.id}",
+        "Error performing membership check of Code: $code in ValueSet: ${valueSet.id}",
         e
       )
     }
   }
 
-  private fun searchByUrl(url: String?): List<ValueSet> {
-    if (url == null) return emptyList()
-    return runBlocking { fhirEngine.search { filter(ValueSet.URL, { value = url }) } }
-  }
-
-  private fun searchByIdentifier(identifier: String?): List<ValueSet> {
-    if (identifier == null) return emptyList()
-    return runBlocking {
-      fhirEngine.search { filter(ValueSet.IDENTIFIER, { value = of(identifier) }) }
-    }
-  }
-
-  private fun searchById(id: String): List<ValueSet> {
-    return runBlocking {
-      listOfNotNull(
-        safeGet(fhirEngine, ResourceType.ValueSet, id.removePrefix(URN_OID).removePrefix(URN_UUID))
-          as? ValueSet
+  override fun expand(valueSetInfo: ValueSetInfo): MutableIterable<Code> {
+    try {
+      val valueSet = resolveValueSet(valueSetInfo)
+      return ValueSetUtil.getCodesInExpansion(fhirContext, valueSet)
+        ?: ValueSetUtil.getCodesInCompose(fhirContext, valueSet)
+    } catch (e: Exception) {
+      throw TerminologyProviderException(
+        "Error performing expansion of ValueSet: ${valueSetInfo.id}",
+        e
       )
     }
   }
 
-  private suspend fun safeGet(fhirEngine: FhirEngine, type: ResourceType, id: String): Resource? {
-    return try {
-      fhirEngine.get(type, id)
-    } catch (e: ResourceNotFoundException) {
-      null
+  override fun lookup(code: Code, codeSystem: CodeSystemInfo): Code {
+    TODO("not implemented yet")
+  }
+
+  private fun searchByUrl(url: String?): List<ValueSet> {
+    if (url == null) return emptyList()
+    return runBlocking {
+      igManager.loadAll(igContext, ResourceType.ValueSet.name, url).map { it as ValueSet }
     }
   }
 
-  fun resolveValueSet(valueSet: ValueSetInfo): ValueSet {
+  private fun searchByIdentifier(identifier: String?): List<ValueSet> = runBlocking {
+    if (identifier == null) {
+      emptyList()
+    } else {
+      igManager.loadById(igContext, ResourceType.ValueSet.name, identifier).map { it as ValueSet }
+    }
+  }
+
+  private fun resolveValueSet(valueSet: ValueSetInfo): ValueSet {
     if (valueSet.version != null ||
         (valueSet.codeSystems != null && valueSet.codeSystems.isNotEmpty())
     ) {
@@ -126,9 +91,6 @@ class FhirEngineTerminologyProvider(
     var searchResults = searchByUrl(valueSet.id)
     if (searchResults.isEmpty()) {
       searchResults = searchByIdentifier(valueSet.id)
-    }
-    if (searchResults.isEmpty()) {
-      searchResults = searchById(valueSet.id)
     }
 
     return if (searchResults.isEmpty()) {
