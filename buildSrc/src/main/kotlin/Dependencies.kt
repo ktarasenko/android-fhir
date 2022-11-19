@@ -42,6 +42,7 @@ object Dependencies {
     const val engineJackson = "$openCdsGroup:engine.jackson:${Versions.Cql.engine}"
 
     const val evaluator = "$openCdsGroup:evaluator:${Versions.Cql.evaluator}"
+    const val evaluatorFhir = "$openCdsGroup:evaluator.fhir:${Versions.Cql.evaluator}"
     const val evaluatorBuilder = "$openCdsGroup:evaluator.builder:${Versions.Cql.evaluator}"
     const val evaluatorDagger = "$openCdsGroup:evaluator.dagger:${Versions.Cql.evaluator}"
     const val evaluatorPlanDef = "$openCdsGroup:evaluator.plandefinition:${Versions.Cql.evaluator}"

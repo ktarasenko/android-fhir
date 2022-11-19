@@ -51,6 +51,7 @@ android {
         "META-INF/NOTICE.md",
         "META-INF/notice.txt",
         "META-INF/LGPL-3.0.txt",
+        "META-INF/sun-jaxb.episode",
       )
     )
   }
@@ -60,6 +61,53 @@ android {
   configureJacocoTestOptions()
 }
 
-dependencies { coreLibraryDesugaring(Dependencies.desugarJdkLibs) }
+configurations {
+  all {
+    exclude(module = "xpp3")
+    exclude(module = "xpp3_min")
+  }
+}
+
+dependencies {
+  coreLibraryDesugaring(Dependencies.desugarJdkLibs)
+  kapt(Dependencies.Room.compiler)
+
+  androidTestImplementation(Dependencies.AndroidxTest.core)
+  androidTestImplementation(Dependencies.AndroidxTest.runner)
+  androidTestImplementation(Dependencies.AndroidxTest.extJunitKtx)
+  androidTestImplementation(Dependencies.Kotlin.kotlinCoroutinesTest)
+  androidTestImplementation(Dependencies.junit)
+  androidTestImplementation(Dependencies.truth)
+
+  implementation(Dependencies.Kotlin.stdlib)
+  implementation(Dependencies.Lifecycle.liveDataKtx)
+  implementation(Dependencies.Room.ktx)
+  implementation(Dependencies.Room.runtime)
+  implementation(Dependencies.timber)
+  implementation(Dependencies.Cql.evaluatorFhir)
+  implementation(Dependencies.Cql.engine)
+
+  api(Dependencies.HapiFhir.structuresR4) { exclude(module = "junit") }
+
+  testImplementation(Dependencies.AndroidxTest.archCore)
+  testImplementation(Dependencies.AndroidxTest.core)
+  testImplementation(Dependencies.Kotlin.kotlinCoroutinesTest)
+  testImplementation(Dependencies.junit)
+  testImplementation(Dependencies.mockitoInline)
+  testImplementation(Dependencies.mockitoKotlin)
+  testImplementation(Dependencies.robolectric)
+  testImplementation(Dependencies.truth)
+
+  // remove me
+  implementation("org.apache.commons:commons-compress:1.20")
+  implementation("com.google.code.gson:gson:2.10")
+  implementation("ca.uhn.hapi.fhir:org.hl7.fhir.convertors:5.6.36")
+  androidTestImplementation("org.opencds.cqf.cql:evaluator.measure-hapi:2.1.0")
+  testImplementation("org.opencds.cqf.cql:evaluator.measure-hapi:2.1.0")
+  implementation(Dependencies.Cql.engineJackson) // Necessary to import Executable XML/JSON CQL libs
+  implementation(
+    Dependencies.Cql.translatorModelJackson
+  ) // Necessary to import Executable XML/JSON CQL libs
+}
 
 configureDokka(Releases.ImplmentationGuide.artifactId, Releases.ImplmentationGuide.version)
