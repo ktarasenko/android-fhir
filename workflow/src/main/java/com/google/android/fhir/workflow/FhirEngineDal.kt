@@ -19,6 +19,8 @@ package com.google.android.fhir.workflow
 import ca.uhn.fhir.rest.gclient.UriClientParam
 import com.google.android.fhir.FhirEngine
 import com.google.android.fhir.getResourceType
+import com.google.android.fhir.implementationguide.IgDependency
+import com.google.android.fhir.implementationguide.IgManager
 import com.google.android.fhir.search.Search
 import kotlinx.coroutines.runBlocking
 import org.hl7.fhir.instance.model.api.IBaseResource
@@ -28,8 +30,10 @@ import org.hl7.fhir.r4.model.Resource
 import org.hl7.fhir.r4.model.ResourceType
 import org.opencds.cqf.cql.evaluator.fhir.dal.FhirDal
 
-class FhirEngineDal(private val fhirEngine: FhirEngine) : FhirDal {
-  val libs = mutableMapOf<String, Library>()
+class FhirEngineDal(
+  private val fhirEngine: FhirEngine, private val igManager: IgManager,
+  private val igDependencies: Array<out IgDependency>,
+) : FhirDal {
 
   override fun read(id: IIdType): IBaseResource = runBlocking {
     val clazz = id.getResourceClass()
@@ -51,21 +55,17 @@ class FhirEngineDal(private val fhirEngine: FhirEngine) : FhirDal {
 
   override fun search(resourceType: String): Iterable<IBaseResource> = runBlocking {
     val search = Search(type = ResourceType.fromCode(resourceType))
-    when (resourceType) {
-      "Library" -> libs.values.plus(fhirEngine.search(search))
-      else -> fhirEngine.search(search)
-    }.toMutableList()
+    igManager.loadResources(*igDependencies,
+                            resourceType = resourceType) + fhirEngine.search(search)
   }
 
   override fun searchByUrl(resourceType: String, url: String): Iterable<IBaseResource> =
     runBlocking {
       val search = Search(type = ResourceType.fromCode(resourceType))
       search.filter(UriClientParam("url"), { value = url })
-
-      when (resourceType) {
-        "Library" -> listOfNotNull(libs[url]).plus(fhirEngine.search(search))
-        else -> fhirEngine.search(search)
-      }.toMutableList()
+      igManager.loadResources(*igDependencies,
+                              resourceType = resourceType,
+                              url = url) + fhirEngine.search(search)
     }
 
   @Suppress("UNCHECKED_CAST")

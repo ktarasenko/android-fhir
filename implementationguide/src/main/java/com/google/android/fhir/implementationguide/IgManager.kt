@@ -16,6 +16,8 @@
 
 package com.google.android.fhir.implementationguide
 
+import android.content.Context
+import androidx.room.Room
 import ca.uhn.fhir.context.FhirContext
 import com.google.android.fhir.implementationguide.db.impl.ImplementationGuideDatabase
 import com.google.android.fhir.implementationguide.db.impl.entities.ResourceMetadataEntity
@@ -31,6 +33,10 @@ import timber.log.Timber
 
 /** Responsible for downloading, accessing and deleting Implementation Guides. */
 class IgManager internal constructor(igDatabase: ImplementationGuideDatabase) {
+
+  constructor(context: Context) : this(Room.databaseBuilder(context,
+                                                            ImplementationGuideDatabase::class.java,
+                                                            "implementationguide.db").build())
 
   private val igDao = igDatabase.implementationGuideDao()
   private val jsonParser = FhirContext.forR4().newJsonParser()

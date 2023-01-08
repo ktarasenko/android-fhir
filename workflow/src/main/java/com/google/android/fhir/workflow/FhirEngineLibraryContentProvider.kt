@@ -16,17 +16,27 @@
 
 package com.google.android.fhir.workflow
 
+import com.google.android.fhir.implementationguide.IgDependency
+import com.google.android.fhir.implementationguide.IgManager
+import kotlinx.coroutines.runBlocking
 import org.hl7.elm.r1.VersionedIdentifier
 import org.hl7.fhir.instance.model.api.IBaseResource
 import org.hl7.fhir.r4.model.Library
 import org.opencds.cqf.cql.evaluator.cql2elm.content.fhir.BaseFhirLibrarySourceProvider
 import org.opencds.cqf.cql.evaluator.fhir.adapter.r4.AdapterFactory
 
-class FhirEngineLibraryContentProvider(adapterFactory: AdapterFactory) :
-  BaseFhirLibrarySourceProvider(adapterFactory) {
-  val libs = mutableMapOf<String, Library>()
+class FhirEngineLibraryContentProvider(
+  adapterFactory: AdapterFactory,
+  private val igManager: IgManager,
+  private val igDependencies: Array<out IgDependency>,
+) : BaseFhirLibrarySourceProvider(adapterFactory) {
 
   override fun getLibrary(libraryIdentifier: VersionedIdentifier): IBaseResource? {
-    return libs[libraryIdentifier.id]
+    return runBlocking {
+      igManager.loadResources(igDependencies = igDependencies,
+                              resourceType = "Library",
+                              name = libraryIdentifier.id,
+                              version = libraryIdentifier.version).firstOrNull()
+    }
   }
 }

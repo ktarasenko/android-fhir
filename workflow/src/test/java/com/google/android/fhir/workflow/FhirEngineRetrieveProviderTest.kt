@@ -55,7 +55,10 @@ class FhirEngineRetrieveProviderTest : Loadable() {
     fhirEngine = FhirEngineProvider.getInstance(ApplicationProvider.getApplicationContext())
     retrieveProvider =
       FhirEngineRetrieveProvider(fhirEngine).apply {
-        terminologyProvider = FhirEngineTerminologyProvider(FhirContext.forR4Cached(), fhirEngine)
+        terminologyProvider = FhirEngineTerminologyProvider(FhirContext.forR4Cached(),
+                                                            fhirEngine,
+                                                            igManager,
+                                                            dependencies)
         isExpandValueSets = true
       }
   }

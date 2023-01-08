@@ -55,7 +55,10 @@ class FhirEngineTerminologyProviderTest : Loadable() {
   @Before
   fun setupTest() {
     fhirEngine = FhirEngineProvider.getInstance(ApplicationProvider.getApplicationContext())
-    provider = FhirEngineTerminologyProvider(FhirContext.forR4Cached(), fhirEngine)
+    provider = FhirEngineTerminologyProvider(FhirContext.forR4Cached(),
+                                             fhirEngine,
+                                             igManager,
+                                             dependencies)
   }
 
   @Test

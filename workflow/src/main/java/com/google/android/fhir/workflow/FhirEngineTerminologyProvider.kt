@@ -19,6 +19,8 @@ package com.google.android.fhir.workflow
 import ca.uhn.fhir.context.FhirContext
 import com.google.android.fhir.FhirEngine
 import com.google.android.fhir.db.ResourceNotFoundException
+import com.google.android.fhir.implementationguide.IgDependency
+import com.google.android.fhir.implementationguide.IgManager
 import com.google.android.fhir.search.search
 import kotlinx.coroutines.runBlocking
 import org.hl7.fhir.r4.model.CodeSystem
@@ -34,7 +36,9 @@ import org.opencds.cqf.cql.evaluator.engine.util.ValueSetUtil
 
 class FhirEngineTerminologyProvider(
   private val fhirContext: FhirContext,
-  private val fhirEngine: FhirEngine
+  private val fhirEngine: FhirEngine,
+  private val igManager: IgManager,
+  private val dependencies: Array<out IgDependency>,
 ) : TerminologyProvider {
 
   companion object {
@@ -92,12 +96,16 @@ class FhirEngineTerminologyProvider(
 
   private fun searchByUrl(url: String?): List<ValueSet> {
     if (url == null) return emptyList()
-    return runBlocking { fhirEngine.search { filter(ValueSet.URL, { value = url }) } }
+    return runBlocking {
+      igManager.loadResources(*dependencies, resourceType = ResourceType.ValueSet.name, url = url)
+        .map { it as ValueSet } + fhirEngine.search { filter(ValueSet.URL, { value = url }) }
+    }
   }
 
   private fun searchByIdentifier(identifier: String?): List<ValueSet> {
     if (identifier == null) return emptyList()
     return runBlocking {
+      //TODO: add ig manager?
       fhirEngine.search { filter(ValueSet.IDENTIFIER, { value = of(identifier) }) }
     }
   }
@@ -105,6 +113,7 @@ class FhirEngineTerminologyProvider(
   private fun searchById(id: String): List<ValueSet> {
     return runBlocking {
       listOfNotNull(
+        //TODO: add ig manager?
         safeGet(fhirEngine, ResourceType.ValueSet, id.removePrefix(URN_OID).removePrefix(URN_UUID))
           as? ValueSet
       )
@@ -121,7 +130,7 @@ class FhirEngineTerminologyProvider(
 
   fun resolveValueSet(valueSet: ValueSetInfo): ValueSet {
     if (valueSet.version != null ||
-        (valueSet.codeSystems != null && valueSet.codeSystems.isNotEmpty())
+      (valueSet.codeSystems != null && valueSet.codeSystems.isNotEmpty())
     ) {
       // Cannot do both at the same time yet.
       throw UnsupportedOperationException(
