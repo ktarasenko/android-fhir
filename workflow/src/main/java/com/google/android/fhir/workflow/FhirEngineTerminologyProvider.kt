@@ -38,7 +38,6 @@ class FhirEngineTerminologyProvider(
   private val fhirContext: FhirContext,
   private val fhirEngine: FhirEngine,
   private val igManager: IgManager,
-  private val dependencies: Array<out IgDependency>,
 ) : TerminologyProvider {
 
   companion object {
@@ -97,7 +96,7 @@ class FhirEngineTerminologyProvider(
   private fun searchByUrl(url: String?): List<ValueSet> {
     if (url == null) return emptyList()
     return runBlocking {
-      igManager.loadResources(*dependencies, resourceType = ResourceType.ValueSet.name, url = url)
+      igManager.loadResources(resourceType = ResourceType.ValueSet.name, url = url)
         .map { it as ValueSet } + fhirEngine.search { filter(ValueSet.URL, { value = url }) }
     }
   }

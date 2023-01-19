@@ -55,11 +55,11 @@ import org.opencds.cqf.cql.evaluator.measure.r4.R4MeasureProcessor
 import org.opencds.cqf.cql.evaluator.plandefinition.OperationParametersParser
 import org.opencds.cqf.cql.evaluator.plandefinition.r4.PlanDefinitionProcessor
 
-class FhirOperator internal constructor(fhirContext: FhirContext, fhirEngine: FhirEngine, igManager: IgManager, vararg dependencies: IgDependency) {
+class FhirOperator internal constructor(fhirContext: FhirContext, fhirEngine: FhirEngine, igManager: IgManager) {
   // Initialize the measure processor
-  private val fhirEngineTerminologyProvider = FhirEngineTerminologyProvider(fhirContext, fhirEngine, igManager, dependencies)
+  private val fhirEngineTerminologyProvider = FhirEngineTerminologyProvider(fhirContext, fhirEngine, igManager)
   private val adapterFactory = AdapterFactory()
-  private val libraryContentProvider = FhirEngineLibraryContentProvider(adapterFactory, igManager, dependencies)
+  private val libraryContentProvider = FhirEngineLibraryContentProvider(adapterFactory, igManager)
   private val fhirTypeConverter = FhirTypeConverterFactory().create(FhirVersionEnum.R4)
   private val fhirEngineRetrieveProvider =
     FhirEngineRetrieveProvider(fhirEngine).apply {
@@ -72,7 +72,7 @@ class FhirOperator internal constructor(fhirContext: FhirContext, fhirEngine: Fh
       CachingModelResolverDecorator(R4FhirModelResolver()),
       fhirEngineRetrieveProvider
     )
-  private val fhirEngineDal = FhirEngineDal(fhirEngine, igManager, dependencies)
+  private val fhirEngineDal = FhirEngineDal(fhirEngine, igManager)
 
   private val measureProcessor =
     R4MeasureProcessor(

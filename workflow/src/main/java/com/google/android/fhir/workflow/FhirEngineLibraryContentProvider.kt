@@ -28,13 +28,11 @@ import org.opencds.cqf.cql.evaluator.fhir.adapter.r4.AdapterFactory
 class FhirEngineLibraryContentProvider(
   adapterFactory: AdapterFactory,
   private val igManager: IgManager,
-  private val igDependencies: Array<out IgDependency>,
 ) : BaseFhirLibrarySourceProvider(adapterFactory) {
 
   override fun getLibrary(libraryIdentifier: VersionedIdentifier): IBaseResource? {
     return runBlocking {
-      igManager.loadResources(igDependencies = igDependencies,
-                              resourceType = "Library",
+      igManager.loadResources(resourceType = "Library",
                               name = libraryIdentifier.id,
                               version = libraryIdentifier.version).firstOrNull()
     }

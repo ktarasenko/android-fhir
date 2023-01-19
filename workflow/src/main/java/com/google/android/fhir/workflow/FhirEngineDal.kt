@@ -32,7 +32,6 @@ import org.opencds.cqf.cql.evaluator.fhir.dal.FhirDal
 
 class FhirEngineDal(
   private val fhirEngine: FhirEngine, private val igManager: IgManager,
-  private val igDependencies: Array<out IgDependency>,
 ) : FhirDal {
 
   override fun read(id: IIdType): IBaseResource = runBlocking {
@@ -55,17 +54,14 @@ class FhirEngineDal(
 
   override fun search(resourceType: String): Iterable<IBaseResource> = runBlocking {
     val search = Search(type = ResourceType.fromCode(resourceType))
-    igManager.loadResources(*igDependencies,
-                            resourceType = resourceType) + fhirEngine.search(search)
+    igManager.loadResources(resourceType = resourceType) + fhirEngine.search(search)
   }
 
   override fun searchByUrl(resourceType: String, url: String): Iterable<IBaseResource> =
     runBlocking {
       val search = Search(type = ResourceType.fromCode(resourceType))
       search.filter(UriClientParam("url"), { value = url })
-      igManager.loadResources(*igDependencies,
-                              resourceType = resourceType,
-                              url = url) + fhirEngine.search(search)
+      igManager.loadResources(resourceType = resourceType, url = url) + fhirEngine.search(search)
     }
 
   @Suppress("UNCHECKED_CAST")

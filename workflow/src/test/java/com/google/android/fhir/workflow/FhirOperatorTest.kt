@@ -16,13 +16,16 @@
 
 package com.google.android.fhir.workflow
 
+import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import ca.uhn.fhir.context.FhirContext
 import com.google.android.fhir.FhirEngine
 import com.google.android.fhir.FhirEngineProvider
+import com.google.android.fhir.implementationguide.IgManager
 import com.google.android.fhir.testing.FhirEngineProviderTestRule
 import com.google.android.fhir.workflow.testing.CqlBuilder
 import com.google.common.truth.Truth.assertThat
+import java.io.File
 import java.io.InputStream
 import java.util.TimeZone
 import kotlinx.coroutines.runBlocking
@@ -32,6 +35,7 @@ import org.hl7.fhir.r4.model.Library
 import org.hl7.fhir.r4.model.Measure
 import org.hl7.fhir.r4.model.Resource
 import org.hl7.fhir.r4.model.ResourceType
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -44,16 +48,17 @@ import org.skyscreamer.jsonassert.JSONAssert
 class FhirOperatorTest {
   @get:Rule val fhirEngineProviderRule = FhirEngineProviderTestRule()
 
+  private val context: Context = ApplicationProvider.getApplicationContext()
+  private val igManager = IgManager.createInMemory(context)
   private lateinit var fhirEngine: FhirEngine
   private lateinit var fhirOperator: FhirOperator
 
   companion object {
-    private val libraryBundle: Bundle by lazy { parseJson("/ANCIND01-bundle.json") }
     private val fhirContext = FhirContext.forR4()
     private val jsonParser = fhirContext.newJsonParser()
     private val xmlParser = fhirContext.newXmlParser()
 
-    private fun open(path: String) = FhirOperatorTest::class.java.getResourceAsStream(path)!!
+    private fun open(path: String) = javaClass.getResourceAsStream(path)!!
 
     private fun parseJson(path: String): Bundle = jsonParser.parseResource(open(path)) as Bundle
 
@@ -65,32 +70,38 @@ class FhirOperatorTest {
 
   @Before
   fun setUp() = runBlocking {
-    fhirEngine = FhirEngineProvider.getInstance(ApplicationProvider.getApplicationContext())
-    fhirOperator = FhirOperator(fhirContext, fhirEngine)
+    fhirEngine = FhirEngineProvider.getInstance(context)
+    fhirOperator = FhirOperator(fhirContext, fhirEngine, igManager)
+
     TimeZone.setDefault(TimeZone.getTimeZone("GMT"))
+    val rootDirectory = File(javaClass.getResource("/anc-cds")!!.file)
+
+    igManager.install(IgManager.DEFAULT_DEPENDENCY, rootDirectory)
+  }
+
+  @After
+  fun tearDown() {
+    igManager.close()
   }
 
   @Test
   fun generateCarePlan() = runBlocking {
-    loadBundle(libraryBundle)
-    fhirEngine.run {
-      loadBundle(parseJson("/plan-definition/rule-filters/RuleFilters-1.0.0-bundle.json"))
-      loadBundle(parseJson("/plan-definition/rule-filters/tests-Reportable-bundle.json"))
-      loadBundle(parseJson("/plan-definition/rule-filters/tests-NotReportable-bundle.json"))
+    loadBundle(parseJson("/plan-definition/rule-filters/RuleFilters-1.0.0-bundle.json"))
+    loadBundle(parseJson("/plan-definition/rule-filters/tests-Reportable-bundle.json"))
+    loadBundle(parseJson("/plan-definition/rule-filters/tests-NotReportable-bundle.json"))
 
-      loadFile("/first-contact/01-registration/patient-charity-otala-1.json")
-      loadFile("/first-contact/02-enrollment/careplan-charity-otala-1-pregnancy-plan.xml")
-      loadFile("/first-contact/02-enrollment/episodeofcare-charity-otala-1-pregnancy-episode.xml")
-      loadFile("/first-contact/03-contact/encounter-anc-encounter-charity-otala-1.xml")
-    }
+    loadFile("/first-contact/01-registration/patient-charity-otala-1.json")
+    loadFile("/first-contact/02-enrollment/careplan-charity-otala-1-pregnancy-plan.xml")
+    loadFile("/first-contact/02-enrollment/episodeofcare-charity-otala-1-pregnancy-episode.xml")
+    loadFile("/first-contact/03-contact/encounter-anc-encounter-charity-otala-1.xml")
 
     assertThat(
-        fhirOperator.generateCarePlan(
-          planDefinitionId = "plandefinition-RuleFilters-1.0.0",
-          patientId = "Reportable",
-          encounterId = "reportable-encounter"
-        )
+      fhirOperator.generateCarePlan(
+        planDefinitionId = "plandefinition-RuleFilters-1.0.0",
+        patientId = "Reportable",
+        encounterId = "reportable-encounter"
       )
+    )
       .isNotNull()
   }
 
@@ -116,13 +127,10 @@ class FhirOperatorTest {
 
   @Test
   fun evaluatePopulationMeasure() = runBlocking {
-    loadBundle(libraryBundle)
-    fhirEngine.run {
-      loadFile("/first-contact/01-registration/patient-charity-otala-1.json")
-      loadFile("/first-contact/02-enrollment/careplan-charity-otala-1-pregnancy-plan.xml")
-      loadFile("/first-contact/02-enrollment/episodeofcare-charity-otala-1-pregnancy-episode.xml")
-      loadFile("/first-contact/03-contact/encounter-anc-encounter-charity-otala-1.xml")
-    }
+    loadFile("/first-contact/01-registration/patient-charity-otala-1.json")
+    loadFile("/first-contact/02-enrollment/careplan-charity-otala-1-pregnancy-plan.xml")
+    loadFile("/first-contact/02-enrollment/episodeofcare-charity-otala-1-pregnancy-episode.xml")
+    loadFile("/first-contact/03-contact/encounter-anc-encounter-charity-otala-1.xml")
 
     val measureReport =
       fhirOperator.evaluateMeasure(
@@ -182,13 +190,11 @@ class FhirOperatorTest {
 
   @Test
   fun evaluateIndividualSubjectMeasure() = runBlocking {
-    loadBundle(libraryBundle)
-    fhirEngine.run {
-      loadFile("/first-contact/01-registration/patient-charity-otala-1.json")
-      loadFile("/first-contact/02-enrollment/careplan-charity-otala-1-pregnancy-plan.xml")
-      loadFile("/first-contact/02-enrollment/episodeofcare-charity-otala-1-pregnancy-episode.xml")
-      loadFile("/first-contact/03-contact/encounter-anc-encounter-charity-otala-1.xml")
-    }
+    loadFile("/first-contact/01-registration/patient-charity-otala-1.json")
+    loadFile("/first-contact/02-enrollment/careplan-charity-otala-1-pregnancy-plan.xml")
+    loadFile("/first-contact/02-enrollment/episodeofcare-charity-otala-1-pregnancy-episode.xml")
+    loadFile("/first-contact/03-contact/encounter-anc-encounter-charity-otala-1.xml")
+
     val measureReport =
       fhirOperator.evaluateMeasure(
         measureUrl = "http://fhir.org/guides/who/anc-cds/Measure/ANCIND01",
@@ -221,11 +227,18 @@ class FhirOperatorTest {
 
   private suspend fun loadBundle(bundle: Bundle) {
     for (entry in bundle.entry) {
-      when (entry.resource.resourceType) {
-        ResourceType.Library -> fhirOperator.loadLib(entry.resource as Library)
+      val resource = entry.resource
+      when (resource.resourceType) {
+        ResourceType.Library -> igManager.install(writeToFile(entry.resource as Library))
         ResourceType.Bundle -> Unit
         else -> fhirEngine.create(entry.resource)
       }
+    }
+  }
+
+  private fun writeToFile(library: Library): File {
+    return File(context.filesDir, library.name).apply {
+      writeText(jsonParser.encodeResourceToString(library))
     }
   }
 

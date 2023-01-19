@@ -16,11 +16,13 @@
 
 package com.google.android.fhir.workflow
 
+import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.context.FhirVersionEnum
 import com.google.android.fhir.FhirEngine
 import com.google.android.fhir.FhirEngineProvider
+import com.google.android.fhir.implementationguide.IgManager
 import com.google.android.fhir.testing.FhirEngineProviderTestRule
 import com.google.android.fhir.workflow.testing.CqlBuilder
 import com.google.common.truth.Truth.assertThat
@@ -59,8 +61,9 @@ class FhirOperatorLibraryEvaluateJavaTest {
 
   @Before
   fun setUp() = runBlocking {
-    fhirEngine = FhirEngineProvider.getInstance(ApplicationProvider.getApplicationContext())
-    fhirOperator = FhirOperator(fhirContext, fhirEngine)
+    val context: Context = ApplicationProvider.getApplicationContext()
+    fhirEngine = FhirEngineProvider.getInstance(context)
+    fhirOperator = FhirOperator(fhirContext, fhirEngine, IgManager.createInMemory(context))
   }
 
   /**
@@ -106,7 +109,7 @@ class FhirOperatorLibraryEvaluateJavaTest {
     }
 
     // Load Library that checks if Patient has taken a vaccine
-    fhirOperator.loadLibs(load("/immunity-check/ImmunityCheck.json"))
+    // fhirOperator.loadLibs(load("/immunity-check/ImmunityCheck.json"))
 
     // Evaluates a specific Patient
     val results =
@@ -131,7 +134,7 @@ class FhirOperatorLibraryEvaluateJavaTest {
 
     val library = CqlBuilder.assembleFhirLib(cql, null, null, "TestGetName", "1.0.0")
 
-    fhirOperator.loadLib(library)
+    // fhirOperator.loadLib(library)
 
     // Evaluates expression without any extra data
     val results = fhirOperator.evaluateLibrary(library.url, setOf("GetName")) as Parameters
@@ -153,7 +156,7 @@ class FhirOperatorLibraryEvaluateJavaTest {
 
     val library = CqlBuilder.assembleFhirLib(cql, null, null, "TestSumWithParams", "1.0.0")
 
-    fhirOperator.loadLib(library)
+    // fhirOperator.loadLib(library)
 
     val params =
       Parameters().apply {

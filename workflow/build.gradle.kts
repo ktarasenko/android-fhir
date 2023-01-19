@@ -25,6 +25,12 @@ android {
     testInstrumentationRunnerArguments["package"] = "com.google.android.fhir.workflow"
   }
 
+  sourceSets {
+    getByName("androidTest").apply { resources.setSrcDirs(listOf("sampledata")) }
+
+    getByName("test").apply { resources.setSrcDirs(listOf("sampledata")) }
+  }
+
   // Added this for fixing out of memory issue in running test cases
   tasks.withType<Test>().configureEach {
     maxParallelForks = (Runtime.getRuntime().availableProcessors() - 1).takeIf { it > 0 } ?: 1
