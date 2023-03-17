@@ -105,13 +105,11 @@ internal class FhirEngineTerminologyProvider(
 
   private suspend fun searchByIdentifier(identifier: String?): List<ValueSet> {
     if (identifier == null) return emptyList()
-    //TODO: add ig manager?
     return fhirEngine.search { filter(ValueSet.IDENTIFIER, { value = of(identifier) }) }
   }
 
   private suspend fun searchById(id: String): List<ValueSet> =
     listOfNotNull(
-      //TODO: add ig manager?
       safeGet(fhirEngine, ResourceType.ValueSet, id.removePrefix(URN_OID).removePrefix(URN_UUID))
         as? ValueSet
     )
