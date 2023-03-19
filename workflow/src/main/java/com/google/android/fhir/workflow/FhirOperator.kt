@@ -317,7 +317,7 @@ class FhirOperator(fhirContext: FhirContext, fhirEngine: FhirEngine, igManager: 
     encounterId: String?
   ): IBaseResource {
     return planDefinitionProcessor.apply(
-      IdType("PlanDefinition", planDefinitionId),
+      IdType(planDefinitionId),
       patientId,
       encounterId,
       /* practitionerId= */ null,

@@ -19,6 +19,7 @@
         "id" : "MedRequest-Example",
         "title" : "This example illustrates a medication request",
         "status" : "active",
+        "url" : "http://localhost/PlanDefinition/MedRequest-Example",
         "action" : [{
           "id" : "medication-action-1",
           "title" : "Administer Medication 1",

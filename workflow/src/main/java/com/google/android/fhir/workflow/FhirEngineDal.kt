@@ -17,6 +17,7 @@
 package com.google.android.fhir.workflow
 
 import ca.uhn.fhir.rest.gclient.UriClientParam
+import ca.uhn.fhir.rest.server.exceptions.ResourceNotFoundException
 import com.google.android.fhir.FhirEngine
 import com.google.android.fhir.getResourceType
 import com.google.android.fhir.implementationguide.IgManager
@@ -34,7 +35,11 @@ internal class FhirEngineDal(
 
   override fun read(id: IIdType): IBaseResource = runBlockingOrThrowMainThreadException {
     val clazz = id.getResourceClass()
-    fhirEngine.get(getResourceType(clazz), id.idPart)
+    if (id.isAbsolute) {
+      igManager.loadResources(resourceType = id.resourceType,url = "${id.baseUrl}/${id.resourceType}/${id.idPart}").first()
+    } else {
+      fhirEngine.get(getResourceType(clazz), id.idPart)
+    }
   }
 
   override fun create(resource: IBaseResource): Unit = runBlockingOrThrowMainThreadException {
@@ -60,7 +65,8 @@ internal class FhirEngineDal(
     runBlockingOrThrowMainThreadException {
       val search = Search(type = ResourceType.fromCode(resourceType))
       search.filter(UriClientParam("url"), { value = url })
-      igManager.loadResources(resourceType = resourceType, url = url) + fhirEngine.search(search)
+      // Searching for knowledge artifact, no need to lookup for fhirEngine
+      igManager.loadResources(resourceType = resourceType, url = url)
     }
 
   @Suppress("UNCHECKED_CAST")
