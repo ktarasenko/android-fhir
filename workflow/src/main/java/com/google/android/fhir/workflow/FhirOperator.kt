@@ -22,6 +22,8 @@ import ca.uhn.fhir.context.FhirVersionEnum
 import com.google.android.fhir.FhirEngine
 import com.google.android.fhir.knowledge.KnowledgeManager
 import java.util.function.Supplier
+import org.cqframework.cql.cql2elm.LibrarySourceProvider
+import org.hl7.fhir.instance.model.api.IBaseBundle
 import org.hl7.fhir.instance.model.api.IBaseParameters
 import org.hl7.fhir.instance.model.api.IBaseResource
 import org.hl7.fhir.r4.model.Coding
@@ -29,6 +31,7 @@ import org.hl7.fhir.r4.model.Endpoint
 import org.hl7.fhir.r4.model.IdType
 import org.hl7.fhir.r4.model.MeasureReport
 import org.hl7.fhir.r4.model.Parameters
+import org.hl7.fhir.r4.model.PlanDefinition
 import org.opencds.cqf.cql.engine.data.CompositeDataProvider
 import org.opencds.cqf.cql.engine.fhir.converter.FhirTypeConverterFactory
 import org.opencds.cqf.cql.engine.fhir.model.R4FhirModelResolver
@@ -36,6 +39,8 @@ import org.opencds.cqf.cql.evaluator.CqlOptions
 import org.opencds.cqf.cql.evaluator.activitydefinition.r4.ActivityDefinitionProcessor
 import org.opencds.cqf.cql.evaluator.builder.CqlEvaluatorBuilder
 import org.opencds.cqf.cql.evaluator.builder.EndpointConverter
+import org.opencds.cqf.cql.evaluator.builder.EndpointInfo
+import org.opencds.cqf.cql.evaluator.builder.LibrarySourceProviderFactory
 import org.opencds.cqf.cql.evaluator.builder.ModelResolverFactory
 import org.opencds.cqf.cql.evaluator.builder.data.DataProviderFactory
 import org.opencds.cqf.cql.evaluator.builder.data.FhirModelResolverFactory
@@ -72,11 +77,7 @@ internal constructor(
     FhirEngineTerminologyProvider(fhirContext, fhirEngine, knowledgeManager)
   private val adapterFactory = AdapterFactory()
   private val fhirTypeConverter = FhirTypeConverterFactory().create(FhirVersionEnum.R4)
-  private val fhirEngineRetrieveProvider =
-    FhirEngineRetrieveProvider(fhirEngine).apply {
-      terminologyProvider = fhirEngineTerminologyProvider
-      isExpandValueSets = true
-    }
+  private val repository = FhirRepository(fhirEngine, knowledgeManager)
 
   private val dataProvider =
     CompositeDataProvider(
@@ -99,6 +100,16 @@ internal constructor(
   // Initialize the plan definition processor
   private val cqlFhirParameterConverter =
     CqlFhirParametersConverter(fhirContext, adapterFactory, fhirTypeConverter)
+  private val libraryContentProviderFactory = object : LibrarySourceProviderFactory {
+    override fun create(endpointInfo: EndpointInfo?): LibrarySourceProvider {
+      TODO("Not yet implemented")
+    }
+
+    override fun create(contentBundle: IBaseBundle?): LibrarySourceProvider {
+      TODO("Not yet implemented")
+    }
+
+  }
 
   private val fhirModelResolverFactory = FhirModelResolverFactory()
 
@@ -110,7 +121,7 @@ internal constructor(
         object : TypedRetrieveProviderFactory {
           override fun getType() = Constants.HL7_FHIR_FILES
           override fun create(url: String?, headers: MutableList<String>?) =
-            fhirEngineRetrieveProvider
+            RepositoryRetrieveProvider(repository)
         }
       )
     )
@@ -121,7 +132,7 @@ internal constructor(
         object : TypedTerminologyProviderFactory {
           override fun getType() = Constants.HL7_FHIR_FILES
           override fun create(url: String?, headers: MutableList<String>?) =
-            fhirEngineTerminologyProvider
+            RepositoryTerminologyProvider(repository)
         }
       )
     )
@@ -131,7 +142,7 @@ internal constructor(
     CqlEvaluatorBuilder()
       .withLibrarySourceProvider(librarySourceContentProvider)
       .withCqlOptions(CqlOptions.defaultOptions())
-      .withTerminologyProvider(fhirEngineTerminologyProvider)
+      .withTerminologyProvider( RepositoryTerminologyProvider(repository))
   }
 
   private val libraryProcessor =
@@ -305,6 +316,8 @@ internal constructor(
   ): IBaseResource {
     return planDefinitionProcessor.apply(
       IdType("PlanDefinition", planDefinitionId),
+      IdType("PlanDefinition", planDefinitionId),
+      repository.read(PlanDefinition::class.java,   IdType("PlanDefinition", planDefinitionId)),
       patientId,
       encounterId,
       /* practitionerId= */ null,
@@ -314,7 +327,6 @@ internal constructor(
       /* userTaskContext= */ null,
       /* setting= */ null,
       /* settingContext= */ null,
-      /* mergeNestedCarePlans= */ null,
       /* parameters= */ Parameters(),
       /* useServerData= */ null,
       /* bundle= */ null,

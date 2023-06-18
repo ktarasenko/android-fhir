@@ -51,6 +51,7 @@ object Dependencies {
 
   object Cql {
     const val openCdsGroup = "org.opencds.cqf.cql"
+    const val openCdsGroupFhir = "org.opencds.cqf.fhir"
     const val translatorGroup = "info.cqframework"
 
     const val engine = "$openCdsGroup:engine:${Versions.Cql.engine}"
@@ -59,8 +60,10 @@ object Dependencies {
     const val evaluator = "$openCdsGroup:evaluator:${Versions.Cql.evaluator}"
     const val evaluatorFhir = "$openCdsGroup:evaluator.fhir:${Versions.Cql.evaluator}"
     const val evaluatorBuilder = "$openCdsGroup:evaluator.builder:${Versions.Cql.evaluator}"
-    const val evaluatorDagger = "$openCdsGroup:evaluator.dagger:${Versions.Cql.evaluator}"
+    const val evaluatorDagger = "$openCdsGroup:evaluator.dagger:2.6.0"
     const val evaluatorPlanDef = "$openCdsGroup:evaluator.plandefinition:${Versions.Cql.evaluator}"
+    const val evaluatorCqfApi = "$openCdsGroupFhir:cqf-fhir-api:${Versions.Cql.evaluator}"
+    const val evaluatorMeasureHapi = "$openCdsGroup:evaluator.measure-hapi:${Versions.Cql.evaluator}"
     const val evaluatorCqfApi = "$openCdsGroup:cqf-fhir-api:${Versions.Cql.evaluator}"
     const val evaluatorMeasureHapi = "$openCdsGroup:evaluator.measure-hapi:${Versions.Cql.evaluator}"
     const val translatorCqlToElm = "$translatorGroup:cql-to-elm:${Versions.Cql.translator}"

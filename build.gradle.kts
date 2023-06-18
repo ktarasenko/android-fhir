@@ -19,7 +19,8 @@ allprojects {
   repositories {
     google()
     mavenCentral()
-    maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
+    // maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
+    maven(url = "https://oss.sonatype.org/service/local/repositories/snapshots/content")
     gradlePluginPortal()
   }
   configureSpotless()

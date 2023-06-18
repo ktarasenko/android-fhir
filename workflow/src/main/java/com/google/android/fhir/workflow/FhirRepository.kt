@@ -2,28 +2,49 @@ package com.google.android.fhir.workflow
 
 import ca.uhn.fhir.context.FhirContext
 import ca.uhn.fhir.model.api.IQueryParameterType
+import ca.uhn.fhir.model.valueset.BundleTypeEnum
 import ca.uhn.fhir.rest.api.MethodOutcome
+import ca.uhn.fhir.util.BundleBuilder
+import com.google.android.fhir.FhirEngine
+import com.google.android.fhir.getResourceType
+import com.google.android.fhir.knowledge.KnowledgeManager
+import com.google.android.fhir.search.Search
+import java.util.function.Consumer
 import org.hl7.fhir.instance.model.api.IBaseBundle
 import org.hl7.fhir.instance.model.api.IBaseConformance
 import org.hl7.fhir.instance.model.api.IBaseParameters
 import org.hl7.fhir.instance.model.api.IBaseResource
 import org.hl7.fhir.instance.model.api.IIdType
+import org.hl7.fhir.r4.model.Resource
 import org.opencds.cqf.fhir.api.Repository
 
-class FhirRepository: Repository {
+class FhirRepository(
+  private val fhirEngine: FhirEngine,
+  private val knowledgeManager: KnowledgeManager,
+) : Repository {
   override fun <T : IBaseResource, I : IIdType> read(
     resourceType: Class<T>,
     id: I,
     headers: Map<String, String>,
-  ): T {
-    TODO("Not yet implemented")
+  ): T = runBlockingOrThrowMainThreadException {
+    if (id.isAbsolute) {
+      knowledgeManager
+        .loadResources(
+          resourceType = id.resourceType,
+          url = "${id.baseUrl}/${id.resourceType}/${id.idPart}"
+        )
+        .single() as T
+    } else {
+      fhirEngine.get(getResourceType(resourceType as Class<Resource>), id.idPart) as T
+    }
   }
 
   override fun <T : IBaseResource?> create(
     resource: T,
     headers: Map<String, String>,
-  ): MethodOutcome {
-    TODO("Not yet implemented")
+  ): MethodOutcome =  runBlockingOrThrowMainThreadException {
+     val id = fhirEngine.create(resource as Resource).single()
+    MethodOutcome().setResource(fhirEngine.get(resource.resourceType, id))
   }
 
   override fun <I : IIdType, P : IBaseParameters> patch(
@@ -52,11 +73,23 @@ class FhirRepository: Repository {
   override fun <B : IBaseBundle, T : IBaseResource> search(
     bundleType: Class<B>,
     resourceType: Class<T>,
-    searchParameters: Map<String, List<IQueryParameterType>>,
-    headers: Map<String, String>,
-  ): B {
-    TODO("Not yet implemented")
+    searchParameters: Map<String, List<IQueryParameterType>>?,
+    headers: Map<String, String>?,
+  ): B = runBlockingOrThrowMainThreadException {
+    val search = Search(type = getResourceType(resourceType as Class<Resource>))
+    val resourceList = knowledgeManager.loadResources(resourceType = getResourceType(resourceType as Class<Resource>).name) + fhirEngine.search(search)
+    val b = BundleBuilder(fhirContext())
+    resourceList.forEach(Consumer { theResource: IBaseResource? ->
+      b.addCollectionEntry(
+        theResource
+      )
+    })
+
+    b.setType(BundleTypeEnum.SEARCHSET.code)
+
+    b.bundle as B
   }
+
 
   override fun <B : IBaseBundle> link(
     bundleType: Class<B>,
@@ -161,7 +194,5 @@ class FhirRepository: Repository {
     TODO("Not yet implemented")
   }
 
-  override fun fhirContext(): FhirContext {
-    TODO("Not yet implemented")
-  }
+  override fun fhirContext(): FhirContext = FhirContext.forR4Cached()
 }

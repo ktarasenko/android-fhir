@@ -25,11 +25,11 @@ import org.hl7.fhir.r4.model.Coding
 import org.hl7.fhir.r4.model.Endpoint
 import org.hl7.fhir.r4.model.IdType
 import org.hl7.fhir.r4.model.Parameters
+import org.hl7.fhir.r4.model.PlanDefinition
 import org.json.JSONException
 import org.junit.Assert.fail
 import org.opencds.cqf.cql.engine.fhir.converter.FhirTypeConverterFactory
 import org.opencds.cqf.cql.evaluator.activitydefinition.r4.ActivityDefinitionProcessor
-import org.opencds.cqf.cql.evaluator.builder.Constants
 import org.opencds.cqf.cql.evaluator.builder.CqlEvaluatorBuilder
 import org.opencds.cqf.cql.evaluator.builder.EndpointConverter
 import org.opencds.cqf.cql.evaluator.builder.data.DataProviderFactory
@@ -44,12 +44,14 @@ import org.opencds.cqf.cql.evaluator.cql2elm.util.LibraryVersionSelector
 import org.opencds.cqf.cql.evaluator.engine.retrieve.BundleRetrieveProvider
 import org.opencds.cqf.cql.evaluator.engine.terminology.BundleTerminologyProvider
 import org.opencds.cqf.cql.evaluator.expression.ExpressionEvaluator
+import org.opencds.cqf.cql.evaluator.fhir.Constants
 import org.opencds.cqf.cql.evaluator.fhir.adapter.r4.AdapterFactory
 import org.opencds.cqf.cql.evaluator.fhir.dal.FhirDal
 import org.opencds.cqf.cql.evaluator.library.CqlFhirParametersConverter
 import org.opencds.cqf.cql.evaluator.library.LibraryProcessor
 import org.opencds.cqf.cql.evaluator.plandefinition.OperationParametersParser
 import org.opencds.cqf.cql.evaluator.plandefinition.r4.PlanDefinitionProcessor
+import org.opencds.cqf.fhir.api.Repository
 import org.skyscreamer.jsonassert.JSONAssert
 
 object PlanDefinition : Loadable() {
@@ -60,7 +62,7 @@ object PlanDefinition : Loadable() {
     return jsonParser.parseResource(open(assetName))
   }
 
-  fun buildProcessor(fhirDal: FhirDal): PlanDefinitionProcessor {
+  fun buildProcessor(repository: Repository, fhirDal: FhirDal): PlanDefinitionProcessor {
     val adapterFactory = AdapterFactory()
     val libraryVersionSelector = LibraryVersionSelector(adapterFactory)
     val fhirTypeConverter = FhirTypeConverterFactory().create(fhirContext.version.version)
@@ -128,28 +130,9 @@ object PlanDefinition : Loadable() {
         fhirModelResolverFactory
       ) { CqlEvaluatorBuilder() }
 
-    val evaluator =
-      ExpressionEvaluator(
-        fhirContext,
-        cqlFhirParametersConverter,
-        librarySourceProviderFactory,
-        dataProviderFactory,
-        terminologyProviderFactory,
-        endpointConverter,
-        fhirModelResolverFactory
-      ) { CqlEvaluatorBuilder() }
 
-    val activityDefProcessor = ActivityDefinitionProcessor(fhirContext, fhirDal, libraryProcessor)
-    val operationParametersParser = OperationParametersParser(adapterFactory, fhirTypeConverter)
 
-    return PlanDefinitionProcessor(
-      fhirContext,
-      fhirDal,
-      libraryProcessor,
-      evaluator,
-      activityDefProcessor,
-      operationParametersParser
-    )
+    return PlanDefinitionProcessor(repository)
   }
 
   object Assert {
@@ -162,9 +145,9 @@ object PlanDefinition : Loadable() {
   class Apply(
     private val planDefinitionID: String,
     private val patientID: String?,
-    private val encounterID: String?
+    private val encounterID: String?,
   ) {
-    private val fhirDal = FakeFhirDal()
+    private val fhirRepository = FakeRepository()
     private lateinit var dataEndpoint: Endpoint
     private lateinit var libraryEndpoint: Endpoint
     private lateinit var baseResource: IBaseResource
@@ -176,7 +159,7 @@ object PlanDefinition : Loadable() {
           .setConnectionType(Coding().setCode(Constants.HL7_FHIR_FILES))
       baseResource = parse(dataAssetName)
 
-      fhirDal.addAll(baseResource)
+      // fhirDal.addAll(baseResource)
       return this
     }
 
@@ -186,18 +169,22 @@ object PlanDefinition : Loadable() {
           .setAddress(libraryAssetName)
           .setConnectionType(Coding().setCode(Constants.HL7_FHIR_FILES))
 
-      fhirDal.addAll(parse(libraryAssetName))
+      // fhirDal.addAll(parse(libraryAssetName))
       return this
     }
 
     fun apply(): GeneratedCarePlan {
       return GeneratedCarePlan(
-        buildProcessor(fhirDal)
+        PlanDefinitionProcessor(fhirRepository)
           .apply(
             IdType("PlanDefinition", planDefinitionID),
+            IdType("PlanDefinition", planDefinitionID),
+            fhirRepository.read(
+              PlanDefinition::class.java,
+              IdType("PlanDefinition", planDefinitionID)
+            ),
             patientID,
             encounterID,
-            null,
             null,
             null,
             null,
