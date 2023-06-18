@@ -57,9 +57,12 @@ object Dependencies {
     const val engineJackson = "$openCdsGroup:engine.jackson:${Versions.Cql.engine}"
 
     const val evaluator = "$openCdsGroup:evaluator:${Versions.Cql.evaluator}"
+    const val evaluatorFhir = "$openCdsGroup:evaluator.fhir:${Versions.Cql.evaluator}"
     const val evaluatorBuilder = "$openCdsGroup:evaluator.builder:${Versions.Cql.evaluator}"
     const val evaluatorDagger = "$openCdsGroup:evaluator.dagger:${Versions.Cql.evaluator}"
     const val evaluatorPlanDef = "$openCdsGroup:evaluator.plandefinition:${Versions.Cql.evaluator}"
+    const val evaluatorCqfApi = "$openCdsGroup:cqf-fhir-api:${Versions.Cql.evaluator}"
+    const val evaluatorMeasureHapi = "$openCdsGroup:evaluator.measure-hapi:${Versions.Cql.evaluator}"
     const val translatorCqlToElm = "$translatorGroup:cql-to-elm:${Versions.Cql.translator}"
     const val translatorElm = "$translatorGroup:elm:${Versions.Cql.translator}"
     const val translatorModel = "$translatorGroup:model:${Versions.Cql.translator}"
@@ -243,7 +246,7 @@ object Dependencies {
     object Cql {
       const val antlr = "4.10.1"
       const val engine = "2.4.0"
-      const val evaluator = "2.4.0"
+      const val evaluator = "3.0.0-PRE3"
       const val translator = "2.4.0"
     }
 

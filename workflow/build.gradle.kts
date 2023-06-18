@@ -109,6 +109,9 @@ dependencies {
   implementation(Dependencies.Cql.engineJackson) // Necessary to import Executable XML/JSON CQL libs
   implementation(Dependencies.Cql.evaluator)
   implementation(Dependencies.Cql.evaluatorBuilder)
+  implementation(Dependencies.Cql.evaluatorCqfApi)
+  implementation(Dependencies.Cql.evaluatorFhir)
+  implementation(Dependencies.Cql.evaluatorMeasureHapi)
   implementation(Dependencies.Cql.evaluatorDagger)
   implementation(Dependencies.Cql.evaluatorPlanDef)
   implementation(Dependencies.Cql.translatorCqlToElm) // Overrides HAPI's old versions

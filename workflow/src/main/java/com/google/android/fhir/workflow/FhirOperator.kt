@@ -34,25 +34,25 @@ import org.opencds.cqf.cql.engine.fhir.converter.FhirTypeConverterFactory
 import org.opencds.cqf.cql.engine.fhir.model.R4FhirModelResolver
 import org.opencds.cqf.cql.evaluator.CqlOptions
 import org.opencds.cqf.cql.evaluator.activitydefinition.r4.ActivityDefinitionProcessor
-import org.opencds.cqf.cql.evaluator.builder.Constants
 import org.opencds.cqf.cql.evaluator.builder.CqlEvaluatorBuilder
 import org.opencds.cqf.cql.evaluator.builder.EndpointConverter
 import org.opencds.cqf.cql.evaluator.builder.ModelResolverFactory
 import org.opencds.cqf.cql.evaluator.builder.data.DataProviderFactory
 import org.opencds.cqf.cql.evaluator.builder.data.FhirModelResolverFactory
 import org.opencds.cqf.cql.evaluator.builder.data.TypedRetrieveProviderFactory
-import org.opencds.cqf.cql.evaluator.builder.library.LibrarySourceProviderFactory
-import org.opencds.cqf.cql.evaluator.builder.library.TypedLibrarySourceProviderFactory
 import org.opencds.cqf.cql.evaluator.builder.terminology.TerminologyProviderFactory
 import org.opencds.cqf.cql.evaluator.builder.terminology.TypedTerminologyProviderFactory
+import org.opencds.cqf.cql.evaluator.cql2elm.content.fhir.RepositoryFhirLibrarySourceProvider
 import org.opencds.cqf.cql.evaluator.cql2elm.util.LibraryVersionSelector
 import org.opencds.cqf.cql.evaluator.engine.model.CachingModelResolverDecorator
+import org.opencds.cqf.cql.evaluator.engine.retrieve.RepositoryRetrieveProvider
+import org.opencds.cqf.cql.evaluator.engine.terminology.RepositoryTerminologyProvider
 import org.opencds.cqf.cql.evaluator.expression.ExpressionEvaluator
+import org.opencds.cqf.cql.evaluator.fhir.Constants
 import org.opencds.cqf.cql.evaluator.fhir.adapter.r4.AdapterFactory
 import org.opencds.cqf.cql.evaluator.library.CqlFhirParametersConverter
 import org.opencds.cqf.cql.evaluator.library.LibraryProcessor
 import org.opencds.cqf.cql.evaluator.measure.r4.R4MeasureProcessor
-import org.opencds.cqf.cql.evaluator.plandefinition.OperationParametersParser
 import org.opencds.cqf.cql.evaluator.plandefinition.r4.PlanDefinitionProcessor
 
 // Uses the already cached FhirContext instead of creating a new one
@@ -66,12 +66,11 @@ internal constructor(
   fhirEngine: FhirEngine,
   knowledgeManager: KnowledgeManager
 ) {
+  private val repository = FhirRepository()
   // Initialize the measure processor
   private val fhirEngineTerminologyProvider =
     FhirEngineTerminologyProvider(fhirContext, fhirEngine, knowledgeManager)
   private val adapterFactory = AdapterFactory()
-  private val libraryContentProvider =
-    FhirEngineLibraryContentProvider(adapterFactory, knowledgeManager)
   private val fhirTypeConverter = FhirTypeConverterFactory().create(FhirVersionEnum.R4)
   private val fhirEngineRetrieveProvider =
     FhirEngineRetrieveProvider(fhirEngine).apply {
@@ -82,14 +81,17 @@ internal constructor(
   private val dataProvider =
     CompositeDataProvider(
       CachingModelResolverDecorator(CachedR4FhirModelResolver),
-      fhirEngineRetrieveProvider
+      RepositoryRetrieveProvider(repository)
     )
   private val fhirEngineDal = FhirEngineDal(fhirEngine, knowledgeManager)
 
+  private val librarySourceContentProvider =
+    RepositoryFhirLibrarySourceProvider(repository, adapterFactory, LibraryVersionSelector(adapterFactory))
+
   private val measureProcessor =
     R4MeasureProcessor(
-      fhirEngineTerminologyProvider,
-      libraryContentProvider,
+      RepositoryTerminologyProvider(repository),
+      librarySourceContentProvider,
       dataProvider,
       fhirEngineDal
     )
@@ -97,18 +99,7 @@ internal constructor(
   // Initialize the plan definition processor
   private val cqlFhirParameterConverter =
     CqlFhirParametersConverter(fhirContext, adapterFactory, fhirTypeConverter)
-  private val libraryContentProviderFactory =
-    LibrarySourceProviderFactory(
-      fhirContext,
-      adapterFactory,
-      hashSetOf<TypedLibrarySourceProviderFactory>(
-        object : TypedLibrarySourceProviderFactory {
-          override fun getType() = Constants.HL7_FHIR_FILES
-          override fun create(url: String?, headers: MutableList<String>?) = libraryContentProvider
-        }
-      ),
-      LibraryVersionSelector(adapterFactory)
-    )
+
   private val fhirModelResolverFactory = FhirModelResolverFactory()
 
   private val dataProviderFactory =
@@ -138,7 +129,7 @@ internal constructor(
 
   private val evaluatorBuilderSupplier = Supplier {
     CqlEvaluatorBuilder()
-      .withLibrarySourceProvider(libraryContentProvider)
+      .withLibrarySourceProvider(librarySourceContentProvider)
       .withCqlOptions(CqlOptions.defaultOptions())
       .withTerminologyProvider(fhirEngineTerminologyProvider)
   }
@@ -147,7 +138,7 @@ internal constructor(
     LibraryProcessor(
       fhirContext,
       cqlFhirParameterConverter,
-      libraryContentProviderFactory,
+      librarySourceContentProvider,
       dataProviderFactory,
       terminologyProviderFactory,
       endpointConverter,
@@ -168,18 +159,9 @@ internal constructor(
     )
 
   private val activityDefinitionProcessor =
-    ActivityDefinitionProcessor(fhirContext, fhirEngineDal, libraryProcessor)
-  private val operationParametersParser =
-    OperationParametersParser(adapterFactory, fhirTypeConverter)
+    ActivityDefinitionProcessor(repository)
   private val planDefinitionProcessor =
-    PlanDefinitionProcessor(
-      fhirContext,
-      fhirEngineDal,
-      libraryProcessor,
-      expressionEvaluator,
-      activityDefinitionProcessor,
-      operationParametersParser
-    )
+    PlanDefinitionProcessor(repository)
 
   /**
    * The function evaluates a FHIR library against the database.
